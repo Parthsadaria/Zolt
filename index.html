@@ -563,7 +563,7 @@ const movieData = [
 ];
 async function fetchMoviesFromLocalFile() {
     try {
-        const response = await fetch('movie.json'); // Ensure the file is in the same directory
+        const response = await fetch('e.json'); // Ensure the file is in the same directory
         if (!response.ok) throw new Error('Network response was not ok');
         const moviesFromAPI = await response.json();
 
