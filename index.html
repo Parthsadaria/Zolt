@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zolt.com</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent: #f0ff21;
+            --card-bg: #141414;
+            --search-bg: #1a1a1a;
+            --admin-bg: #111111;
+            --success: #00ff88;
+            --error: #ff3b5c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Remove top padding to perfectly center */
+    margin: 0; /* Ensure no extra spacing from body */
+}
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            background: linear-gradient(45deg, #fff, #ffeb3b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow:0px 0px 1cap #ffeb3b;
+        }
+
+
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    margin-top: 0; /* Remove unnecessary top margin */
+}
+
+        .search-box {
+            width: 100%;
+            padding: 20px 30px;
+            border-radius: 15px;
+            border: 2px solid var(--accent);
+            background: var(--search-bg);
+            color: var(--text-color);
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(255, 59, 92, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 1.2em;
+        }
+
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1400px;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .movies-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+            display: grid;
+        }
+
+        .movie-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 59, 92, 0.1);
+        }
+
+        .movie-header {
+            padding: 20px;
+            font-size: 1.2em;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .movie-title {
+            color: var(--text-color);
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+            display: block;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 40px;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .loading::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid #ffffff1a;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: loading 0.8s infinite linear;
+            display: block;
+        }
+
+        @keyframes loading {
+            to { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 40px;
+            display: none;
+        }
+
+        /* Cool hover effect for search box */
+        .search-container::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 17px;
+            background: linear-gradient(45deg, #fff12f, #6b6d0050);
+            box-shadow: 0px 0px 5px yellow;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .search-container:hover::after {
+            opacity: 1;
+        }        /* New Admin Panel Styles */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--admin-bg);
+            padding: 20px;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .admin-panel.open {
+            right: 0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .admin-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .close-admin {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .admin-form {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: var(--search-bg);
+            color: var(--text-color);
+            font-size: 1em;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .admin-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .movie-list {
+            margin-top: 30px;
+        }
+
+        .movie-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .delete-movie {
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: var(--success);
+            color: white;
+            font-weight: 600;
+            transform: translateY(-100px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+        }
+
+        .notification.error {
+            background: var(--error);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: none;
+            color: var(--text-color);
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        /* Genres Filter */
+        .genres-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+
+        .genre-tag {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .genre-tag.active {
+            background: var(--accent);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f5f5f5;
+            --text-color: #0a0a0a;
+            --card-bg: #ffffff;
+            --search-bg: #ffffff;
+            --admin-bg: #ffffff;
+        }
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1400px;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .movies-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+            display: grid;
+        }
+        /* Trending Container Styling */
+/* Trending Container Styling */
+.trending-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    padding: 10px;
+    overflow: hidden; /* Hide overflow for clean scrolling effect */
+}
+
+.trending-container h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.trending-list {
+    display: flex;
+    gap: 20px;
+    animation: scroll 15s linear infinite; /* Animation to scroll */
+}
+
+.trending-item {
+    flex: 0 0 auto;
+    padding: 10px 15px;
+    background: #333;
+    color: #fff;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-weight: 500;
+    transition: transform 0.2s ease-in-out;
+}
+
+.trending-item:hover {
+    transform: scale(1.05);
+}
+
+/* Marquee Scroll Animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Zolt.com</h1>
+    </div>
+
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="Search for movies..." onkeyup="searchMovies(this.value)">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+    <div class="trending-container">
+        <h2>Trending Movies</h2>
+        <div class="trending-list">
+            <!-- Add each trending movie here -->
+            <div class="trending-item">Inception</div>
+            <div class="trending-item">The Dark Knight</div>
+            <div class="trending-item">Interstellar</div>
+            <div class="trending-item">Avengers: Endgame</div>
+            <div class="trending-item">Spider-Man: No Way Home</div>
+            <div class="trending-item">Joker</div>
+            <!-- Additional trending movies as needed -->
+        </div>
+    </div>
+    <div class="loading"></div>
+<div class="no-results"></div>
+<div class="placeholder-text"></div>
+
+
+    <div class="movies-container"></div>
+    <div class="loading"></div>
+    <div class="no-results">No movies found</div>
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <div class="admin-header">
+            <span class="admin-title">Admin Dashboard</span>
+            <button class="close-admin">&times;</button>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-value" id="total-movies">0</div>
+                <div class="stat-label">Total Movies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-views">0</div>
+                <div class="stat-label">Total Views</div>
+            </div>
+        </div>
+
+        <form class="admin-form" id="add-movie-form">
+            <div class="form-group">
+                <label class="form-label">Movie Title</label>
+                <input type="text" class="form-input" name="title" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Movie ID</label>
+                <input type="text" class="form-input" name="id" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Genre</label>
+                <input type="text" class="form-input" name="genre" placeholder="Action, Drama, etc.">
+            </div>
+            <button type="submit" class="admin-btn">Add Movie</button>
+        </form>
+
+        <div class="movie-list">
+            <!-- Movies will be listed here -->
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+    <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+    <script>
+const movieData = [
+    { id: "912649", title: "Venom: Let There Be Carnage" },
+    { id: "1877830", title: "The Batman" },
+    { id: "1375666", title: "Inception" },
+    { id: "157336", title: "Interstellar" },
+    { id: "7286456", title: "Joker" },
+    { id: "4154796", title: "Avengers: Endgame" },
+    { id: "133093", title: "The Matrix" },
+    { id: "634649", title: "Spider-Man: No Way Home" },
+    { id: "438631", title: "Dune" },
+    { id: "361743", title: "Top Gun: Maverick" },
+    { id: "299534", title: "Avengers: Infinity War" },
+    { id: "157336", title: "Interstellar" },
+    { id: "24428", title: "The Avengers" },
+    { id: "603692", title: "John Wick: Chapter 4" },
+    { id: "550", title: "Fight Club" }
+];
+async function fetchMoviesFromLocalFile() {
+    try {
+        const response = await fetch('movie.json'); // Ensure the file is in the same directory
+        if (!response.ok) throw new Error('Network response was not ok');
+        const moviesFromAPI = await response.json();
+
+        const formattedMovies = moviesFromAPI.map(movie => ({
+            id: movie.tmdb.toString(),
+            title: movie.title
+        }));
+
+        renderMovieList(formattedMovies);
+        showNotification('Movies loaded successfully');
+    } catch (error) {
+        console.error('Failed to load movies from local file:', error);
+        showNotification('Failed to load movies from local file', true);
+    }
+}
+
+let movies = JSON.parse(localStorage.getItem('movies')) || movieData;
+
+        function createMovieCard(movie) {
+            return `
+                <div class="movie-card">
+                    <div class="movie-header">
+                        <span class="movie-title">${movie.title}</span>
+                    </div>
+                    <iframe src="https://embed.su/embed/movie/${movie.id}" allowfullscreen></iframe>
+                </div>
+            `;
+        }
+        function searchMovies(searchTerm) {
+    const moviesContainer = document.querySelector('.movies-container');
+    const loading = document.querySelector('.loading');
+    const noResults = document.querySelector('.no-results');
+    const placeholder = document.querySelector('.placeholder-text');
+
+    // Clear previous results
+    moviesContainer.innerHTML = '';
+
+    if (searchTerm.length < 2) {
+        moviesContainer.classList.remove('visible');
+        noResults.style.display = 'none';
+        placeholder.style.display = 'block';
+        return;
+    }
+
+    loading.style.display = 'block';
+    placeholder.style.display = 'none';
+    moviesContainer.classList.remove('visible');
+    noResults.style.display = 'none';
+    
+    setTimeout(() => {
+        const filteredMovies = movies.filter(movie => 
+            movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        if (filteredMovies.length === 0) {
+            noResults.style.display = 'block';
+            moviesContainer.classList.remove('visible');
+        } else {
+            noResults.style.display = 'none';
+            moviesContainer.innerHTML = filteredMovies.map(createMovieCard).join('');
+            moviesContainer.classList.add('visible');
+        }
+
+        loading.style.display = 'none';
+    }, 500);
+}
+        // Cool effect for search box focus
+        const searchBox = document.querySelector('.search-box');
+        searchBox.addEventListener('focus', () => {
+            document.body.style.background = '#080808';
+        });
+        searchBox.addEventListener('blur', () => {
+            document.body.style.background = getComputedStyle(document.body).getPropertyValue('--bg-color');
+
+        });
+        
+        let totalViews = parseInt(localStorage.getItem('totalViews')) || 0;
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        // Admin Panel Functions
+        function toggleAdminPanel() {
+            const adminPanel = document.querySelector('.admin-panel');
+            adminPanel.classList.toggle('open');
+            updateAdminStats();
+            renderMovieList();
+        }
+
+        function updateAdminStats() {
+            document.getElementById('total-movies').textContent = movies.length;
+            document.getElementById('total-views').textContent = totalViews;
+        }
+
+        function renderMovieList(movies) {
+    const movieList = document.querySelector('.movie-list');
+    movieList.innerHTML = movies.map(movie => `
+        <div class="movie-item">
+            <span>${movie.title}</span>
+            <button class="delete-movie" onclick="deleteMovie('${movie.id}')">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `).join('');
+}
+
+
+        function deleteMovie(id) {
+            movies = movies.filter(movie => movie.id !== id);
+            localStorage.setItem('movies', JSON.stringify(movies));
+            renderMovieList();
+            updateAdminStats();
+            showNotification('Movie deleted successfully');
+            searchMovies(document.querySelector('.search-box').value);
+        }
+
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.toggle('error', isError);
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', newTheme);
+            document.querySelector('.theme-toggle i').classList.toggle('fa-moon');
+            document.querySelector('.theme-toggle i').classList.toggle('fa-sun');
+            currentTheme = newTheme;
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Event Listeners
+// Event Listeners
+document.querySelector('.search-box').addEventListener('keyup', (e) => {
+    if (e.target.value.toLowerCase() === 'admin') {
+        toggleAdminPanel();
+        e.target.value = '';
+    } else {
+        searchMovies(e.target.value);
+    }
+});
+
+        document.querySelector('.close-admin').addEventListener('click', toggleAdminPanel);
+        document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
+
+        document.getElementById('add-movie-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const newMovie = {
+                id: formData.get('id'),
+                title: formData.get('title'),
+                genre: formData.get('genre')
+            };
+
+            if (movies.some(movie => movie.id === newMovie.id)) {
+                showNotification('Movie ID already exists!', true);
+                return;
+            }
+
+            movies.push(newMovie);
+            localStorage.setItem('movies', JSON.stringify(movies));
+            e.target.reset();
+            renderMovieList();
+            updateAdminStats();
+            showNotification('Movie added successfully');
+        });
+
+        // Initialize theme
+        document.body.setAttribute('data-theme', currentTheme);
+        document.querySelector('.theme-toggle i').classList.toggle('fa-sun', currentTheme === 'light');
+
+        // Track views
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMoviesFromLocalFile(); // Load movies on page load
+            totalViews++;
+            localStorage.setItem('totalViews', totalViews);
+        });
+    </script>
+</body>
+</html>
