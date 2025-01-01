@@ -240,41 +240,66 @@ document.addEventListener('click', (e) => {
 });
 //song aagad and pachad
 let currentSongIndex = 0;
+
 function moveAhead() {
-    // Check if the queue is empty
     if (songQueue.length === 0) {
         console.log("The queue is empty! Add some songs first.");
         return;
     }
 
-    // Check if there's a next song to play
     if (currentSongIndex < songQueue.length - 1) {
         currentSongIndex++; // Move to the next song
         const nextSong = songQueue[currentSongIndex];
         loadAndPlaySong(nextSong); // Play the next song
         updateQueueDisplay(); // Update the queue visualization
+        updateMediaSession(nextSong); // Update Media Session metadata
     } else {
         console.log("No more songs ahead!");
     }
 }
 
 function moveBackward() {
-    // Check if the queue is empty
     if (songQueue.length === 0) {
         console.log("The queue is empty! Add some songs first.");
         return;
     }
 
-    // Check if there's a previous song to play
     if (currentSongIndex > 0) {
         currentSongIndex--; // Move to the previous song
         const previousSong = songQueue[currentSongIndex];
         loadAndPlaySong(previousSong); // Play the previous song
         updateQueueDisplay(); // Update the queue visualization
+        updateMediaSession(previousSong); // Update Media Session metadata
     } else {
         console.log("No more songs behind!");
     }
 }
+
+// Function to update Media Session metadata
+// Function to update Media Session metadata
+function updateMediaSession(song) {
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: song.name,
+            artist: song.artist,
+            album: 'Your Playlist', // Default album or playlist name
+            artwork: [
+                { src: song.image, sizes: '96x96', type: 'image/png' },
+                { src: song.image, sizes: '128x128', type: 'image/png' },
+                { src: song.image, sizes: '192x192', type: 'image/png' },
+                { src: song.image, sizes: '256x256', type: 'image/png' },
+                { src: song.image, sizes: '384x384', type: 'image/png' },
+                { src: song.image, sizes: '512x512', type: 'image/png' },
+            ]
+        });
+
+        // Define actions for media controls
+        navigator.mediaSession.setActionHandler('previoustrack', moveBackward);
+        navigator.mediaSession.setActionHandler('nexttrack', moveAhead);
+    }
+}
+
+
 
 //dynamic color systummmmmmmm 
 const colorThief = new ColorThief();
