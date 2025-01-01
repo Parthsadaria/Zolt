@@ -10,13 +10,16 @@ function heetgithub() {
     window.open("https://github.com/HEETKUMBHARANA2369", "_blank");
 }
 function claudeai() {
-    window.open("https://claude.ai/new", "_blank")
+    window.open("https://claude.ai/new", "_blank");
 }
 function chatgpt() {
-    window.open("https://chatgpt.com", "_blank")
+    window.open("https://chatgpt.com", "_blank");
 }
 function jiosaavn() {
-    window.open("https://saavn.dev/", "_blank")
+    window.open("https://saavn.dev/", "_blank");
+}
+function icons8(){
+    window.open("https://icons8.com/","_blank");
 }
 // Modified DOMContentLoaded event handler
 document.addEventListener('DOMContentLoaded', function () {
