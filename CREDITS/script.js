@@ -1,7 +1,6 @@
 // Your existing code remains the same at the top
 function goBack() {
-    alert('Navigate back to main app');
-    window.open("/FINAL ZOLT/Zolt/index.html","_self");
+    window.open("/index.html","_self");
 }
 function parthgithub() {
     window.open("https://github.com/Parthsadaria", "_blank");
