@@ -1,0 +1,596 @@
+@keyframes sub_animate {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --card-bg: #1c1c1e;
+    --hover-bg: #2c2c2e;
+    --button-bg: #2c2c2e;
+    --accent-color: #0a84ff;
+}
+
+/* new stuff */
+::selection {
+    background-color: rgba(253, 253, 253, 0.3);
+    /* Custom background color with opacity */
+    color: rgb(0, 0, 0);
+    /* Custom text color when selected */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* end */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+    cursor: url('https://img.icons8.com/?size=26&id=1405&format=png&color=FFFFFF'), auto;
+}
+
+/* Aesthetic Scrollbar */
+body::-webkit-scrollbar {
+    width: 2vh;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--bg-color);
+    /* Scrollbar track background */
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--hover-bg);
+    /* Scrollbar thumb background */
+    border-radius: 10px;
+    border: 2px solid var(--bg-color);
+    /* Adds space between the track and the thumb */
+}
+
+.profile1 img,
+.profile2 img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid white;
+}
+
+.sub-text {
+    margin-top: 2rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #8e8e93;
+    /* animation-name: sub_animate; */
+    /* animation-duration: 3s; */
+    /* animation-delay: 0.10s; */
+    /* animation-timing-function: ease-in-out; */
+    /* animation-iteration-count: infinite; */
+}
+
+.languages {
+    display: flex;
+    justify-content: center;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+}
+
+#html5,
+#css3,
+#js,
+#python {
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+#html5:hover {
+    filter:
+        drop-shadow(0 0 10px rgba(255, 165, 0, 0.8)) drop-shadow(0 0 15px rgba(255, 165, 0, 0.6));
+}
+
+#css3:hover {
+    filter:
+        drop-shadow(0 0 10px rgba(0, 225, 255, 0.8)) drop-shadow(0 0 15px rgba(0, 217, 255, 0.6));
+}
+
+#js:hover {
+    filter:
+        drop-shadow(0 0 10px rgba(255, 255, 0, 0.8)) drop-shadow(0 0 15px rgba(255, 255, 0, 0.6));
+}
+
+#python:hover {
+    filter:
+        drop-shadow(0 0 10px rgba(0, 255, 0, 0.8)) drop-shadow(0 0 15px rgba(0, 255, 0, 0.6));
+}
+
+.languages img {
+    height: 10vh;
+}
+
+.logo {
+    font-family: 'Encode Sans', sans-serif;
+    font-weight: 800;
+    color: white;
+    font-size: 6rem;
+    cursor: pointer;
+    background: linear-gradient(45deg, #fff, #696969);
+    /* six nain */
+    text-shadow: 0px 0px 150px white;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-delay: 0.2ms;
+    transition-timing-function: ease-in-out;
+}
+
+.logo:hover {
+    letter-spacing: 5px;
+}
+
+.credits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+    padding: 0 1rem;
+}
+
+.credit-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+    transition-delay: 200ms;
+}
+
+.credit-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: var(--hover-bg);
+    /* box-shadow: 2px 2px 40px 1px grey; */
+}
+
+.og-credits #claude {
+    border-radius: 50%;
+}
+
+.developer {
+    font-family: 'Encode Sans', sans-serif;
+    cursor: pointer;
+    justify-content: center;
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 1rem 0;
+    color: var(--text-color);
+    position: relative;
+    z-index: 1;
+}
+
+.developer::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /* Start the underline from the center */
+    width: 0;
+    height: 2px;
+    /* Slightly thicker for better visibility */
+    background-color: var(--text-color);
+    /* Matches the text color */
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Smooth and fluid animation */
+    transform: translateX(-50%);
+    /* Center align the underline */
+}
+
+.seperator {
+    margin-top: 50px;
+    width: 80%;
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(255, 253, 253), rgba(0, 0, 0, 0));
+    border-radius: 50%;
+}
+
+.developer:hover::after {
+    width: 100%;
+    /* Expands to full width on hover */
+}
+
+.credit-card:hover .full-name {
+    opacity: 1;
+    display: flex;
+    text-align: center;
+}
+
+.credit-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+            rgba(126, 124, 124, 0.3),
+            transparent 40%);
+}
+
+.credit-card:hover::after {
+    opacity: 1;
+}
+
+.role {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #8e8e93;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+.back-button {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    padding: 1rem 2.5rem;
+    background: var(--button-bg);
+    border: none;
+    border-radius: 25px;
+    color: var(--text-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.back-button:hover {
+    background: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.honourable_mentions {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #8e8e93;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+.app-story {
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.app-story h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #60A5FA, #A78BFA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.app-story p {
+    margin-bottom: 1.25rem;
+}
+
+.highlight-tech {
+    color: #60A5FA;
+    font-weight: 600;
+}
+
+.highlight-growth {
+    color: #34D399;
+    font-weight: 600;
+}
+
+.highlight-core {
+    color: #FBBF24;
+    font-weight: 600;
+}
+
+.highlight-dev {
+    color: #A78BFA;
+    font-weight: 600;
+}
+
+.highlight-ui {
+    color: #F472B6;
+    font-weight: 600;
+}
+
+.thank-you {
+    font-size: 1rem;
+    color: var(--text-color);
+    width: 85%;
+    text-align: center;
+    margin-top: 30px;
+    font-style: italic;
+}
+
+#back-to-top {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--card-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#back-to-top:hover {
+    background-color: var(--hover-bg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .credit-card {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+}
+
+@media (max-width: 768px) {
+    .credits-grid {
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+
+    .logo {
+        font-size: 3.5rem;
+    }
+}
+
+/* game */
+.team-title {
+    position: relative;
+    display: inline-block;
+}
+
+.hidden-trigger {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    opacity: 0.1;
+    transition: opacity 0.3s;
+}
+
+.hidden-trigger:hover {
+    opacity: 0.3;
+}
+
+.game-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: slideIn 0.5s ease-out;
+}
+
+.achievement {
+    position: fixed;
+    top: 20px;
+    right: -300px;
+    background: linear-gradient(90deg, #2c2c2c, #1a1a1a);
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1001;
+    animation: slideInRight 0.5s ease-out forwards;
+}
+
+/* Slot machine container */
+.slot-machine {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem auto;
+    perspective: 1000px;
+    justify-content: center;
+    max-width: 800px;
+}
+
+/* Slot individual styles */
+.slot {
+    background: #333333;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 2.5rem;
+    min-width: 80px;
+    text-align: center;
+    position: relative;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease;
+}
+
+.slot.spinning {
+    animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
+/* Controls section */
+.controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+/* Bet input styling */
+.bet-input {
+    background: #444444;
+    border: 1px solid #555555;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 8px;
+    width: 100px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.bet-input:focus {
+    outline: none;
+    border-color: #34D399;
+}
+
+/* Spin button styling */
+.spin-btn {
+    background: #34D399;
+    color: black;
+    border: none;
+    padding: 0.5rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    font-weight: bold;
+}
+
+.spin-btn:hover {
+    transform: scale(1.05);
+    background-color: #2e9d7d;
+}
+
+.spin-btn:disabled {
+    opacity: 0.5;
+    transform: none;
+}
+
+/* Win flash effect */
+.win-flash {
+    animation: winFlash 0.5s ease-out 3;
+}
+
+@keyframes winFlash {
+
+    0%,
+    100% {
+        background: #333333;
+    }
+
+    50% {
+        background: #34D399;
+    }
+}
+
+/* Overlay styling for dark mode */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Animations for the UI */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animations for sliding effects */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        right: -300px;
+    }
+
+    to {
+        right: 20px;
+    }
+}

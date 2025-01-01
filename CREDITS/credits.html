@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zolt - Credits</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="credits-container">
+        <span class="logo">ZOLT</span>
+        <br>
+        <div class="team-title">
+            <div class="sub-text">THE TEAM</div>
+            <img src="https://img.icons8.com/?size=246&id=39558&format=png&color=FFFFFF" class="hidden-trigger"
+                alt="hidden">
+        </div>
+
+        <div class="overlay"></div>
+
+        <div class="game-modal">
+            <h3 style="color: #34D399; margin: 0;">🎰 Lucky Slots</h3>
+            <p>Balance: ₹<span id="balance">10</span></p>
+
+            <div class="slot-machine">
+                <div class="slot">?</div>
+                <div class="slot">?</div>
+                <div class="slot">?</div>
+            </div>
+
+            <div class="controls">
+                <input type="number" class="bet-input" min="1" value="1" placeholder="Bet amount">
+                <button class="spin-btn">SPIN</button>
+            </div>
+        </div>
+        <div class="credits-grid">
+            <div class="credit-card">
+                <div class="profile1"><img src="https://avatars.githubusercontent.com/u/146802298?v=4"></div>
+                <div class="developer" onclick="parthgithub()">Parth Sadaria</div>
+                <div class="role">LEAD & BACKEND DEV</div>
+                <div class="languages">
+                    <img id="html5" title="html5"
+                        src="https://img.icons8.com/?size=100&id=20909&format=png&color=000000">
+                    <img id="css3" title="css3" src="https://img.icons8.com/?size=100&id=21278&format=png&color=000000">
+                    <img id="js" title="Javascript"
+                        src="https://img.icons8.com/?size=100&id=108784&format=png&color=000000">
+                </div>
+            </div>
+            <div class="credit-card">
+                <div class="profile2"><img src="https://avatars.githubusercontent.com/u/159053359?v=4"></div>
+                <div id="dev2" class="developer" onclick="heetgithub()">Heet Kumbharana</div>
+                <div class="role">FRONTEND DEV</div>
+                <div class="languages">
+                    <img id="html5" title="html5"
+                        src="https://img.icons8.com/?size=100&id=20909&format=png&color=000000">
+                    <img id="css3" title="css3" src="https://img.icons8.com/?size=100&id=21278&format=png&color=000000">
+                    <!-- bhai iska kya meaning hota he? <img id="python" src="https://img.icons8.com/?size=100&id=13441&format=png&color=000000"> -->
+
+                </div>
+            </div>
+        </div>
+        <div class="og-credits">
+            <h2 class="honourable_mentions">HONOURABLE MENTIONS</h2>
+            <img onclick="chatgpt()" src="https://img.icons8.com/?size=50&id=FBO05Dys9QCg&format=png&color=FFFFFF"
+                alt="CHAT GPT" title="Chat GPT">
+            <img onclick="claudeai()" id="claude"
+                src="https://img.icons8.com/?size=50&id=H5H0mqCCr5AV&format=png&color=EB8A46" alt="CLAUDE AI"
+                title="Claude AI">
+            <img onclick="jiosaavn()" src="https://img.icons8.com/?size=50&id=8JfVUt0kgEsB&format=png&color=2AFEB7"
+                alt="JIO SAAVN" title="Jio Saavn">
+        </div>
+    </div>
+    <hr class="seperator">
+    <div class="app-story">
+        <h2>Our Journey of Building Zolt</h2>
+
+        <p>
+            Building <span class="highlight-tech">Zolt</span> was an amazing journey full of learning and growth. We
+            started with only
+            <span class="highlight-growth">determination</span> and no knowledge of frameworks, relying on basic
+            <span class="highlight-core">HTML</span>, <span class="highlight-core">CSS</span>, and <span
+                class="highlight-core">JavaScript</span>.
+            Although it was tough, it taught us so much. We not only improved our
+            <span class="highlight-dev">coding skills</span> but also learned how to work better as a team.
+        </p>
+
+        <p>
+            The biggest breakthrough was figuring out <span class="highlight-tech">API integration</span> and
+            <span class="highlight-tech">server-side development</span>. It was hard at first, but we pushed through the
+            <span class="highlight-growth">learning curve</span> and got a solid understanding of both
+            <span class="highlight-dev">backend</span> and <span class="highlight-dev">frontend development</span>. We
+            spent a lot of time making the
+            <span class="highlight-ui">user interface</span> look great and work smoothly.
+        </p>
+
+        <p>
+            This project was more than just coding. It was a journey of
+            <span class="highlight-growth">growth</span>, <span class="highlight-growth">teamwork</span>, and
+            <span class="highlight-growth">development</span>. Every challenge we faced made us better developers and
+            stronger teammates.
+            Today, we’re proud to show not just a working app, but a project that represents how far we’ve come in the
+            <span class="highlight-tech">tech world</span>.
+        </p>
+    </div>
+    <p class="thank-you">
+        ~A huge thank you to our families, friends, and all our well-wishers. Your constant support, encouragement, and
+        belief in us kept us going through the tough times. We couldnt have done this without you!
+    </p>
+    <button id="back-to-top" onclick="scrollToTop()"><img width="30" height="30"
+            src="https://img.icons8.com/android/100/FFFFFF/up-left-arrow.png" alt="up-left-arrow" /></button>
+    <button class="back-button" onclick="goBack()">Back to App</button>
+    <script src="script.js"></script>
+</body>
+
+</html>
