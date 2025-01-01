@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zolt</title>
     <link rel="icon"
-    href="https://cdn.discordapp.com/attachments/1315194921724149813/1316007268684271616/Openjourney.png?ex=67597ac7&is=67582947&hm=57d21b2083f77ef3ed1d5a0597c1b80463eb8aad32d1b1f80caf4b3f1490ba67&">
+        href="https://cdn.discordapp.com/attachments/1315194921724149813/1316007268684271616/Openjourney.png?ex=67597ac7&is=67582947&hm=57d21b2083f77ef3ed1d5a0597c1b80463eb8aad32d1b1f80caf4b3f1490ba67&">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <button class="aboutus" href="/credits.html">ABOUT DEVS</button>
+    <button class="aboutus" onclick="gotocredits()">ABOUT DEVS</button>
     <div id="sidebar">
         <div class="left-container" id="left-container">
             <div id="playlist-manager">
@@ -23,16 +27,17 @@
             </div>
         </div>
     </div>
-    <button class="opensidebar"id="open-sidebar-btn"></button>    
+    <button class="opensidebar" id="open-sidebar-btn"></button>
     <div class="container">
-        <h1 class="title" id="title" style="color: #ffffff;" onclick = "reloadPage()">ZOLT</h1>
+        <h1 class="title" id="title" style="color: #ffffff;" onclick="reloadPage()">ZOLT</h1>
         <p class="subtitle" id="subtitle">Find your favorite music here</p>
-        <input class="search_bar" id="search_bar" placeholder="Search your favourite music" autocomplete="off"/>
+        <input class="search_bar" id="search_bar" placeholder="Search your favourite music" autocomplete="off" />
         <span class="search"></span>
         <div class="results" id="results"></div>
-    </div> 
+    </div>
     <div id="customPlayer" class="custom-player">
-        <button id="closePlayer" class="close-btn"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/multiply.png" alt="multiply"/></button>
+        <button id="closePlayer" class="close-btn"><img width="30" height="30"
+                src="https://img.icons8.com/ios-glyphs/30/FFFFFF/multiply.png" alt="multiply" /></button>
         <div class="current-song-details">
             <img id="currentSongImage" class="current-song-image" src="" alt="Song Image">
             <div class="current-song-info">
@@ -44,8 +49,15 @@
             <source id="audioSource" type="audio/mp4">
             Your browser does not support the audio element.
         </audio>
-        <button onclick="moveBackward()">Paachad (⏪ Backward)</button>
-        <button onclick="moveAhead()">Aagad (⏩ Forward)</button>
+        <div class="control-btns">
+            <button class="for-back-btn" onclick="moveBackward()"><img
+                    src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>
+            <button class="for-next-btn" onclick="moveAhead()"><img
+                    src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>
+            <button class="song-download-btn"><img
+                    src="https://img.icons8.com/fluency-systems-filled/50/FFFFFF/downloading-updates.png"
+                    id="songDownloadBtn"></button>
+        </div>
         <div class="queue" id="custom-queue">QUEUE</div>
     </div>
     <script src="script.js"></script>
@@ -53,10 +65,10 @@
     <script>
         const leftcont = document.getElementById('left-container');
         const openSidebarBtn = document.getElementById('open-sidebar-btn');
-
         openSidebarBtn.addEventListener('click', () => {
             leftcont.classList.toggle('show');
         });
     </script>
 </body>
+
 </html>

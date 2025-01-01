@@ -8,6 +8,9 @@ const result = document.getElementById('results');
 const songQueue = []; // Queue to store song details
 const customQueue = document.getElementById('custom-queue'); // Queue display element
 // Function to update the visual queue
+function gotocredits() {
+    window.open("CREDITS/credits.html","_self");
+}
 function updateQueueDisplay() {
     if (songQueue.length === 0) {
         customQueue.innerHTML = '<p>No songs in the queue.</p>';
@@ -25,6 +28,9 @@ function updateQueueDisplay() {
 }
 function reloadPage() {
     location.reload();
+}
+function sanitizeString(str) {
+    return str.replace(/'/g, ""); // Removes all single quotes
 }
 const aboutusbtn = document.getElementsByClassName("aboutus");
 searchInput.addEventListener('keydown', function (event) {
@@ -47,20 +53,19 @@ function searchMusic(query) {
         <div class="loading-spinner"></div>
       </div>
     `;
-  
-    const apiUrl = `https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${encodeURIComponent(query)}`;
-  
+
+    const apiUrl = `https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${encodeURIComponent(query)}&limit=40&page=1`;
+
     fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === "SUCCESS" && data.data.results.length > 0) {
-          resultsContainer.innerHTML = data.data.results.map(song => {
-            const songImage = song.image.find(img => img.quality === "500x500")?.link || 'default_image_url.jpg';
-            const audioUrl = song.downloadUrl.find(url => url.quality === "320kbps")?.link || '#';
-            const songName = song.name;
-            const artistNames = song.primaryArtists;
-  
-            return `
+        .then(response => response.json())
+        .then(data => { 
+            if (data.status === "SUCCESS" && data.data.results.length > 0) {
+                resultsContainer.innerHTML = data.data.results.map(song => {
+                    const songImage = song.image.find(img => img.quality === "500x500")?.link || 'default_image_url.jpg';
+                    const audioUrl = song.downloadUrl.find(url => url.quality === "320kbps")?.link || '#';
+                    const songName = sanitizeString(song.name);
+                    const artistNames = sanitizeString(song.primaryArtists);
+                    return `
               <div class="song-card">
                 <img src="${songImage}" alt="${songName}" class="song-image">
                 <div class="song-details">
@@ -78,27 +83,27 @@ function searchMusic(query) {
                 </div>
               </div>
             `;
-          }).join('');
-        } else {
-          resultsContainer.innerHTML = '<p>No results found.</p>';
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        resultsContainer.innerHTML = '<p>An error occurred while fetching the data.</p>';
-      });
-  }
-  
+                }).join('');
+            } else {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            resultsContainer.innerHTML = '<p>An error occurred while fetching the data.</p>';
+        });
+}
+
 
 function playSong(url, name, artist, image) {
     const audioSource = document.getElementById('audioSource');
     const currentSongImage = document.getElementById('currentSongImage');
     const currentSongName = document.getElementById('currentSongName');
     const currentArtistName = document.getElementById('currentArtistName');
-
     // Check if a song is already playing
     if (!audioPlayer.paused && audioPlayer.currentTime > 0) {
         // Append the new song to the queue
+        console.log({ url, name, artist, image }); 
         songQueue.push({ url, name, artist, image });
         updateQueueDisplay(); // Update the queue visualization
         // alert(`${name} has been added to the queue.`);
@@ -127,7 +132,8 @@ function loadAndPlaySong(song) {
     const currentSongImage = document.getElementById('currentSongImage');
     const currentSongName = document.getElementById('currentSongName');
     const currentArtistName = document.getElementById('currentArtistName');
-
+    // const songDownloadBtn = document.getElementById('songDownloadBtn');
+    
     // Update the audio source
     audioSource.src = song.url;
     audioPlayer.load();
@@ -139,12 +145,71 @@ function loadAndPlaySong(song) {
     currentSongName.textContent = song.name;
     currentArtistName.textContent = song.artist;
 
+    // Set up the download button
+    const songDownloadBtn = document.querySelector('.song-download-btn'); // Target the button by class
+
+songDownloadBtn.onclick = function () {
+    const imgElement = songDownloadBtn.querySelector('img'); // Get the <img> inside the button
+    if (!imgElement) {
+        console.error('No <img> element found inside the button.');
+        return;
+    }
+
+    // Save the original image source
+    const originalImageSrc = imgElement.src;
+
+    // Change the image to a loading spinner
+    const spinners = [
+        'https://media.tenor.com/jfmI0j5FcpAAAAAM/loading-wtf.gif',
+        'https://media.tenor.com/FawYo00tBekAAAAM/loading-thinking.gif',
+        'https://media.tenor.com/KEzW7ALwfUAAAAAM/cat-what.gif'
+    ];
+
+    // Pick a random spinner
+    const randomSpinner = spinners[Math.floor(Math.random() * spinners.length)];
+
+    // Change the image to a random loading spinner and resize it
+    imgElement.src = randomSpinner; // Random spinner image
+    imgElement.style.width = '50px'; // Set width to 50px
+    imgElement.style.height = '50px'; // Set height to 50px
+    // Handle the song download
+    downloadSong(song.url, song.name)
+        .then(() => {
+            // Revert the image back to the original after download
+            imgElement.src = originalImageSrc;
+        })
+        .catch((error) => {
+            console.error("Error downloading the song: ", error);
+            // Revert the image back to the original even if there's an error
+            imgElement.src = originalImageSrc;
+        });
+};
+
     // Ensure the player is visible
     const customPlayer = document.getElementById('customPlayer');
     customPlayer.classList.add('show');
 }
 
-
+// Function to download the song with a new name
+function downloadSong(url, name) {
+    return fetch(url) // Fetch the song file as a Blob (binary data)
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a download link
+            const a = document.createElement('a');
+            const newFileName = name + '_from_Zolt.mp4'; // Append '_from_zolt' to the song name and keep '.mp4'
+            const blobUrl = URL.createObjectURL(blob); // Create a URL for the Blob
+            
+            a.href = blobUrl;
+            a.download = newFileName; // Set the download name
+            document.body.appendChild(a); // Append the link to the body (invisible)
+            a.click(); // Trigger the download
+            document.body.removeChild(a); // Clean up by removing the link
+            
+            // Revoke the Blob URL after download to free up memory
+            URL.revokeObjectURL(blobUrl);
+        });
+}
 // Close button functionality
 document.getElementById('closePlayer').addEventListener('click', () => {
     const customPlayer = document.getElementById('customPlayer');
@@ -163,7 +228,8 @@ function toggleMenu(menuButton) {
         }
     });
 }
-//song aagad and pachad
+
+
 // Close popup when clicking outside
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.menu-container')) {
@@ -172,49 +238,50 @@ document.addEventListener('click', (e) => {
         });
     }
 });
-let currentSongIndex = 0; // Start with the first song
-
+//song aagad and pachad
+let currentSongIndex = 0;
 function moveAhead() {
+    // Check if the queue is empty
     if (songQueue.length === 0) {
-        console.log("The queue is empty! Add some songs first."); // Queue is empty check
+        console.log("The queue is empty! Add some songs first.");
         return;
     }
 
+    // Check if there's a next song to play
     if (currentSongIndex < songQueue.length - 1) {
-        currentSongIndex++;
-        const { url, name, artist, image } = songQueue[currentSongIndex];
-        playSong(url, name, artist, image); // Play the next song
+        currentSongIndex++; // Move to the next song
+        const nextSong = songQueue[currentSongIndex];
+        loadAndPlaySong(nextSong); // Play the next song
         updateQueueDisplay(); // Update the queue visualization
     } else {
-      console.log(songQueue);  
-      console.log("No more songs ahead!"); // You're at the last song
+        console.log("No more songs ahead!");
     }
 }
 
 function moveBackward() {
+    // Check if the queue is empty
     if (songQueue.length === 0) {
-        console.log("The queue is empty! Add some songs first."); // Queue is empty check
+        console.log("The queue is empty! Add some songs first.");
         return;
     }
 
+    // Check if there's a previous song to play
     if (currentSongIndex > 0) {
-        currentSongIndex--;
-        const { url, name, artist, image } = songQueue[currentSongIndex];
-        playSong(url, name, artist, image); // Play the previous song
+        currentSongIndex--; // Move to the previous song
+        const previousSong = songQueue[currentSongIndex];
+        loadAndPlaySong(previousSong); // Play the previous song
         updateQueueDisplay(); // Update the queue visualization
     } else {
-        console.log(songQueue);
-        console.log("No more songs behind!"); // You're at the first song
+        console.log("No more songs behind!");
     }
 }
-
 
 //dynamic color systummmmmmmm 
 const colorThief = new ColorThief();
 
 // Calculate relative luminance
 function getLuminance(r, g, b) {
-    let [rs, gs, bs] = [r/255, g/255, b/255].map(c => {
+    let [rs, gs, bs] = [r / 255, g / 255, b / 255].map(c => {
         if (c <= 0.03928) {
             return c / 12.92;
         }
@@ -226,7 +293,7 @@ function getLuminance(r, g, b) {
 // Get contrasting text color
 function getTextColors(backgroundColor) {
     const luminance = getLuminance(...backgroundColor);
-    
+
     if (luminance > 0.5) {
         // Dark text for light backgrounds
         return {
@@ -242,30 +309,38 @@ function getTextColors(backgroundColor) {
     }
 }
 
+// Sort colors by luminance (darkest first)
+function sortColorsByLuminance(colors) {
+    return colors.sort((a, b) => getLuminance(...a) - getLuminance(...b));
+}
+
 // Update player colors
-function updatePlayerColors(color) {
+function updatePlayerColors(colors) {
     const customPlayer = document.getElementById('customPlayer');
     const songName = document.getElementById('currentSongName');
     const artistName = document.getElementById('currentArtistName');
     const closeButton = document.querySelector('.close-btn img');
-    
-    if (color) {
-        const [r, g, b] = color;
-        
-        // Set background gradient
+
+    if (colors && colors.length >= 2) {
+        // Sort colors by luminance to prefer darker colors
+        const sortedColors = sortColorsByLuminance(colors);
+        const [r1, g1, b1] = sortedColors[0];
+        const [r2, g2, b2] = sortedColors[1];
+
+        // Set background gradient between the two darkest colors
         customPlayer.style.background = `linear-gradient(to bottom, 
-            rgba(${r},${g},${b},0.95), 
-            rgba(${r},${g},${b},0.7))`;
-            
+            rgba(${r1},${g1},${b1},0.95), 
+            rgba(${r2},${g2},${b2},0.7))`;
+
         // Get appropriate text colors
-        const textColors = getTextColors(color);
-        
+        const textColors = getTextColors(sortedColors[0]);
+
         // Apply text colors
         songName.style.color = textColors.primary;
         artistName.style.color = textColors.secondary;
-        
+
         // Update close button color
-        closeButton.src = textColors.primary === 'rgb(255, 255, 255)' 
+        closeButton.src = textColors.primary === 'rgb(255, 255, 255)'
             ? 'https://img.icons8.com/ios-glyphs/30/FFFFFF/multiply.png'
             : 'https://img.icons8.com/ios-glyphs/30/000000/multiply.png';
     }
@@ -275,12 +350,12 @@ function updatePlayerColors(color) {
 function handleImageLoad(img) {
     if (img.complete) {
         try {
-            const color = colorThief.getColor(img);
-            updatePlayerColors(color);
+            const palette = colorThief.getPalette(img, 5); // Get top 5 dominant colors
+            updatePlayerColors(palette);
         } catch (error) {
-            console.log('Could not extract color from image:', error);
+            console.log('Could not extract colors from image:', error);
             // Fallback colors
-            updatePlayerColors([33, 33, 33]);
+            updatePlayerColors([[33, 33, 33], [33, 33, 33]]);
         }
     }
 }
@@ -289,13 +364,13 @@ function handleImageLoad(img) {
 const songImage = document.getElementById('currentSongImage');
 songImage.crossOrigin = "Anonymous";
 
-songImage.addEventListener('load', function() {
+songImage.addEventListener('load', function () {
     handleImageLoad(this);
 });
 
-songImage.addEventListener('error', function() {
+songImage.addEventListener('error', function () {
     console.log('Error loading image');
-    updatePlayerColors([33, 33, 33]);
+    updatePlayerColors([[33, 33, 33], [33, 33, 33]]);
 });
 
 // Function to update song

@@ -154,27 +154,114 @@ function playPlaylist(playlistName) {
 }
 
 // Prompt to add a song to a playlist
-function addToPlaylistPrompt(songName, artistNames='Unknown Artist', audioUrl, songImage) {
+function addToPlaylistPrompt(songName, artistNames = 'Unknown Artist', audioUrl, songImage) {
     const playlists = Object.keys(getPlaylists());
     if (playlists.length === 0) {
         alert('No playlists available. Please create a playlist first.');
         return;
     }
 
-    const selectedPlaylist = prompt(`Available Playlists:\n${playlists.join('\n')}\n\nEnter the name of the playlist to add the song:`);
+    // Create the popup container
+    const popupContainer = document.createElement('div');
+    popupContainer.id = 'popupContainer';
+    popupContainer.style.position = 'fixed';
+    popupContainer.style.top = '0';
+    popupContainer.style.left = '0';
+    popupContainer.style.width = '100vw';
+    popupContainer.style.height = '100vh';
+    popupContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    popupContainer.style.backdropFilter = 'blur(5px)';
+    popupContainer.style.display = 'flex';
+    popupContainer.style.justifyContent = 'center';
+    popupContainer.style.alignItems = 'center';
+    popupContainer.style.zIndex = '1000';
 
-    if (selectedPlaylist && playlists.includes(selectedPlaylist)) {
-        const songDetails = {
-            name: songName,
-            artists: artistNames,
-            url: audioUrl,
-            image: songImage
-        };
-        addSongToPlaylist(selectedPlaylist, songDetails);
-    } else {
-        alert('Invalid playlist name.');
-    }
+    // Create the popup content
+    const popupContent = document.createElement('div');
+    popupContent.style.backgroundColor = '#202020';
+    popupContent.style.color = 'white';
+    popupContent.style.padding = '20px';
+    popupContent.style.borderRadius = '10px';
+    popupContent.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+    popupContent.style.width = '300px';
+    popupContent.style.textAlign = 'center';
+
+    // Popup Title
+    const title = document.createElement('h3');
+    title.textContent = 'Add to Playlist';
+    title.style.marginBottom = '15px';
+    title.style.fontSize = '18px';
+    title.style.fontWeight = 'bold';
+    popupContent.appendChild(title);
+
+    // Display Playlists with checkboxes
+    const playlistContainer = document.createElement('div');
+    playlists.forEach(playlist => {
+        const label = document.createElement('label');
+        label.style.display = 'flex';
+        label.style.alignItems = 'center';
+        label.style.marginBottom = '10px';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = playlist;
+        checkbox.style.marginRight = '10px';
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(playlist));
+        playlistContainer.appendChild(label);
+    });
+    popupContent.appendChild(playlistContainer);
+
+    // Add "Done" button
+    const doneButton = document.createElement('button');
+    doneButton.textContent = 'Done';
+    doneButton.style.backgroundColor = '#4CAF50';
+    doneButton.style.color = 'white';
+    doneButton.style.border = 'none';
+    doneButton.style.padding = '10px 15px';
+    doneButton.style.borderRadius = '5px';
+    doneButton.style.cursor = 'pointer';
+    doneButton.style.marginTop = '15px';
+    doneButton.addEventListener('click', () => {
+        const selectedPlaylists = [];
+        const checkboxes = playlistContainer.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selectedPlaylists.push(checkbox.value);
+            }
+        });
+
+        if (selectedPlaylists.length > 0) {
+            const songDetails = {
+                name: songName,
+                artists: artistNames,
+                url: audioUrl,
+                image: songImage
+            };
+
+            // Add the song to the selected playlists
+            selectedPlaylists.forEach(playlist => {
+                addSongToPlaylist(playlist, songDetails);
+            });
+
+            alert(`Song added to playlists: ${selectedPlaylists.join(', ')}`);
+        } else {
+            alert('No playlists selected.');
+        }
+
+        // Remove the popup
+        document.body.removeChild(popupContainer);
+    });
+    popupContent.appendChild(doneButton);
+
+    // Append the popup content to the container
+    popupContainer.appendChild(popupContent);
+
+    // Append the container to the body
+    document.body.appendChild(popupContainer);
 }
+
 
 // Event listener for creating a new playlist
 createPlaylistBtn.addEventListener('click', createPlaylist);
