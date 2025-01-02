@@ -30,11 +30,16 @@ Experience ZOLT Music live at: [https://zolt.netlify.app/](https://zolt.netlify.
 
 ```
 ZOLT/
-├── assets/        # Images and static resources
-├── css/          # Stylesheets
-├── js/           # JavaScript files
-├── pages/        # Additional pages including credits
-└── index.html    # Main entry point
+├── CREDITS/              # Credits section
+│   ├── credits.html     # Credits page layout
+│   ├── credits.css      # Styling for credits page
+│   └── credits.js       # Credits page functionality
+│
+└── HOME/                # Main application
+    ├── index.html       # Main entry point
+    ├── style.css        # Core application styles
+    ├── script.js        # Core application logic
+    └── playlistmanager.js  # Playlist handling functionality
 ```
 
 ## Installation
