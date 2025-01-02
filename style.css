@@ -846,6 +846,18 @@ body::-webkit-scrollbar {
 
     /* Rest remains the same */
 }
+@media screen and (min-width: 481px) and (max-width: 767px){
+    .aboutus {
+        /* top: 15px;
+        right: 15px;
+        position: fixed; */
+        z-index: 1000;
+        width: max-content;
+        font-size: 10px;
+        transform: translate(-11rem);
+    }
+
+}
 
 /* Landscape orientation for mobile devices */
 @media screen and (max-height: 480px) and (orientation: landscape) {
