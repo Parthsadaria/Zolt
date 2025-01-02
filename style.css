@@ -840,7 +840,7 @@ body::-webkit-scrollbar {
     }
 
     .left-container {
-        width: 100%;
+        /* width: 100%; */
         z-index: 9;
     }
 
@@ -868,7 +868,7 @@ body::-webkit-scrollbar {
 
 
     .left-container {
-        width: 100%;
+        /* width: 100%; */
         z-index: 9;
     }
 
@@ -940,7 +940,7 @@ body::-webkit-scrollbar {
     }
 
     .left-container {
-        width: 100%;
+        /* width: 100%; */
         z-index: 9;
     }
 
@@ -959,36 +959,42 @@ body::-webkit-scrollbar {
         font-size: 10px;
         transform: translate(-9rem, 3rem);
     }
-    .opensidebar{
+
+    .opensidebar {
         z-index: 1;
     }
 
-    .left-container{
-        width: 100%;
+    .left-container {
+        /* width: 100%; */
         z-index: 1;
     }
 
     .search_bar {
         z-index: 1;
     }
-    .results{
+
+    .results {
         padding: 0.5rem;
     }
-    .add-to-playlist-btn{
+
+    .add-to-playlist-btn {
         margin-right: 3rem;
     }
 }
-@media screen and (min-width: 1024px){
-    .aboutus{
+
+@media screen and (min-width: 1024px) {
+    .aboutus {
         z-index: 9;
         width: max-content;
         font-size: 10px;
-        transform: translate(-9rem,3rem);
+        transform: translate(-9rem, 3rem);
     }
-    .opensidebar{
+
+    .opensidebar {
         z-index: 1;
     }
-    .results{
+
+    .results {
         padding: 0.2rem;
     }
 }
