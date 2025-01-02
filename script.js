@@ -249,15 +249,18 @@ function moveAhead() {
 
     if (currentSongIndex < songQueue.length - 1) {
         currentSongIndex++; // Move to the next song
-        const nextSong = songQueue[currentSongIndex];
-        loadAndPlaySong(nextSong); // Play the next song
-        updateQueueDisplay(); // Update the queue visualization
-        updateMediaSession(nextSong); // Update Media Session metadata
     } else {
-        console.log("No more songs ahead!");
+        console.log("No more songs ahead! Playing the first song in the queue.");
+        currentSongIndex = 0; // Restart at the first song
     }
+
+    const nextSong = songQueue[currentSongIndex];
+    loadAndPlaySong(nextSong); // Play the next or first song
+    updateQueueDisplay(); // Update the queue visualization
+    updateMediaSession(nextSong); // Update Media Session metadata
 }
 
+// Function to move to the previous song in the queue
 function moveBackward() {
     if (songQueue.length === 0) {
         console.log("The queue is empty! Add some songs first.");
@@ -271,10 +274,35 @@ function moveBackward() {
         updateQueueDisplay(); // Update the queue visualization
         updateMediaSession(previousSong); // Update Media Session metadata
     } else {
-        console.log("No more songs behind!");
+        console.log("No more songs behind! Playing the first song in the queue.");
+        currentSongIndex = 0; // Reset to the first song
+        const firstSong = songQueue[currentSongIndex];
+        loadAndPlaySong(firstSong); // Play the first song
+        updateQueueDisplay(); // Update the queue visualization
+        updateMediaSession(firstSong); // Update Media Session metadata
     }
 }
 
+//song repeater
+// const audioPlayer = document.getElementById('audioPlayer');
+const songRepeatBtn = document.getElementById('songRepeatBtn');
+const repeatIcon = document.getElementById('repeatIcon');
+
+// Flag to track the repeat state
+let isRepeatOn = false;
+
+// Add event listener to toggle repeat state
+songRepeatBtn.addEventListener('click', () => {
+  isRepeatOn = !isRepeatOn; // Toggle the repeat state
+  
+  if (isRepeatOn) {
+    songRepeatBtn.classList.add('on'); // Add the 'on' class to invert colors
+    audioPlayer.loop = true; // Enable looping (repeat current song)
+  } else {
+    songRepeatBtn.classList.remove('on'); // Remove the 'on' class to reset colors
+    audioPlayer.loop = false; // Disable looping
+  }
+});
 // Function to update Media Session metadata
 // Function to update Media Session metadata
 function updateMediaSession(song) {

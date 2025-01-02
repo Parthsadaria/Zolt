@@ -246,8 +246,9 @@ body::-webkit-scrollbar-thumb {
     bottom: 0;
     opacity: 0;
     transition: opacity 0.3s;
-    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
-            rgba(126, 124, 124, 0.3),
+    backdrop-filter: brightness(1.2);
+    background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y),
+            rgba(88, 85, 85, 0.3),
             transparent 40%);
 }
 

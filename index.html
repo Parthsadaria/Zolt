@@ -13,7 +13,6 @@
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 </head>
-
 <body>
     <button class="aboutus" onclick="gotocredits()">ABOUT DEVS</button>
     <div id="sidebar">
@@ -35,6 +34,9 @@
         <span class="search"></span>
         <div class="results" id="results"></div>
     </div>
+    <button id="openPlayerBtn">
+        <img src="https://img.icons8.com/material-sharp/24/FFFFFF/hide-sidepanel.png" alt="Open Player">
+      </button>
     <div id="customPlayer" class="custom-player">
         <button id="closePlayer" class="close-btn"><img width="30" height="30"
                 src="https://img.icons8.com/ios-glyphs/30/FFFFFF/multiply.png" alt="multiply" /></button>
@@ -52,11 +54,18 @@
         <div class="control-btns">
             <button class="for-back-btn" onclick="moveBackward()"><img
                     src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>
-            <button class="for-next-btn" onclick="moveAhead()"><img
-                    src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>
+           
             <button class="song-download-btn"><img
-                    src="https://img.icons8.com/fluency-systems-filled/50/FFFFFF/downloading-updates.png"
+                height="35"
+                width="35"
+                style="padding-top: 5px;"
+                    src="https://img.icons8.com/fluency-systems-filled/256/FFFFFF/downloading-updates.png"
                     id="songDownloadBtn"></button>
+            <button class="song-repeat-btn" id="songRepeatBtn">
+                        <img src="https://img.icons8.com/metro/26/FFFFFF/repeat.png" alt="Repeat" id="repeatIcon">
+                      </button>
+             <button class="for-next-btn" onclick="moveAhead()"><img
+                    src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>                      
         </div>
         <div class="queue" id="custom-queue">QUEUE</div>
     </div>
@@ -65,9 +74,14 @@
     <script>
         const leftcont = document.getElementById('left-container');
         const openSidebarBtn = document.getElementById('open-sidebar-btn');
+        const openPlayerBtn = document.getElementById('openPlayerBtn');
         openSidebarBtn.addEventListener('click', () => {
             leftcont.classList.toggle('show');
         });
+        openPlayerBtn.addEventListener('click', () => {
+      customPlayer.classList.add('show');
+      openPlayerBtn.classList.add('hidden'); // Hide the open button when the player is shown
+    });
     </script>
 </body>
 
