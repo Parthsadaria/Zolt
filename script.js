@@ -213,7 +213,7 @@ function downloadSong(url, name) {
 // Close button functionality
 document.getElementById('closePlayer').addEventListener('click', () => {
     const customPlayer = document.getElementById('customPlayer');
-    audioPlayer.pause();
+    // audioPlayer.pause();
     customPlayer.classList.remove('show');
 });
 function toggleMenu(menuButton) {
