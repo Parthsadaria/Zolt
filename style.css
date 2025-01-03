@@ -851,7 +851,7 @@ body::-webkit-scrollbar {
         gap: 1rem;
         width: 80%;
         top: 100px;
-        left: 50%;
+        left: 60%;
         transform: translateX(-50%);
         padding: 0.5rem;
     }
