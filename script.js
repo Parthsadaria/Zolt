@@ -132,8 +132,8 @@ function loadAndPlaySong(song) {
     const currentSongImage = document.getElementById('currentSongImage');
     const currentSongName = document.getElementById('currentSongName');
     const currentArtistName = document.getElementById('currentArtistName');
-    // const songDownloadBtn = document.getElementById('songDownloadBtn');
-    
+    const songDownloadBtn = document.getElementById('songDownloadBtn');
+    const customPlayer = document.getElementById('customPlayer');
     // Update the audio source
     audioSource.src = song.url;
     audioPlayer.load();
@@ -144,7 +144,9 @@ function loadAndPlaySong(song) {
     currentSongImage.alt = song.name;
     currentSongName.textContent = song.name;
     currentArtistName.textContent = song.artist;
-
+    
+    customPlayer.classList.add('show');
+    
     updateMediaSession(song);
     // Set up the download button
     const songDownloadBtn = document.querySelector('.song-download-btn'); // Target the button by class
@@ -187,8 +189,6 @@ songDownloadBtn.onclick = function () {
 };
 
     // Ensure the player is visible
-    const customPlayer = document.getElementById('customPlayer');
-    customPlayer.classList.add('show');
 }
 
 // Function to download the song with a new name
