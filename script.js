@@ -329,7 +329,7 @@ function updateMediaSession(song) {
             audioPlayer.pause();
         });
         navigator.mediaSession.setActionHandler('previoustrack', moveBackward); // Calls your function
-        navigator.mediaSession.setActionHandler('nexttrack', moveForward); // Calls your function
+        navigator.mediaSession.setActionHandler('nexttrack', moveAhead); // Calls your function
     }
 }
 
