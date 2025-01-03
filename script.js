@@ -135,10 +135,11 @@ function loadAndPlaySong(song) {
     //const songDownloadBtn = document.getElementById('songDownloadBtn');
     const customPlayer = document.getElementById('customPlayer');
     // Update the audio source
+    audioPlayer.currentTime = 0;
     audioSource.src = song.url;
     audioPlayer.load();
     audioPlayer.play();
-
+    
     // Update the song details
     currentSongImage.src = song.image;
     currentSongImage.alt = song.name;
