@@ -132,7 +132,7 @@ function loadAndPlaySong(song) {
     const currentSongImage = document.getElementById('currentSongImage');
     const currentSongName = document.getElementById('currentSongName');
     const currentArtistName = document.getElementById('currentArtistName');
-    const songDownloadBtn = document.getElementById('songDownloadBtn');
+    //const songDownloadBtn = document.getElementById('songDownloadBtn');
     const customPlayer = document.getElementById('customPlayer');
     // Update the audio source
     audioSource.src = song.url;
