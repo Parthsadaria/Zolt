@@ -323,7 +323,7 @@ function updateMediaSession(song) {
 
         // Define actions for media controls
         navigator.mediaSession.setActionHandler('previoustrack', moveBackward); // Moves to the previous track
-        navigator.mediaSession.setActionHandler('nexttrack', moveForward);     // Moves to the next track
+        navigator.mediaSession.setActionHandler('nexttrack', moveAhead);     // Moves to the next track
     }
 }
 
