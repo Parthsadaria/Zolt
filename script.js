@@ -145,6 +145,7 @@ function loadAndPlaySong(song) {
     currentSongName.textContent = song.name;
     currentArtistName.textContent = song.artist;
 
+    updateMediaSession(song);
     // Set up the download button
     const songDownloadBtn = document.querySelector('.song-download-btn'); // Target the button by class
 
@@ -304,13 +305,12 @@ songRepeatBtn.addEventListener('click', () => {
   }
 });
 // Function to update Media Session metadata
-// Function to update Media Session metadata
 function updateMediaSession(song) {
     if ('mediaSession' in navigator) {
+        // Update media session metadata
         navigator.mediaSession.metadata = new MediaMetadata({
             title: song.name,
-            artist: song.artist,
-            album: 'Your Playlist', // Default album or playlist name
+            artist: `${song.artist} - ${siteName()}`, // Artist name and site name
             artwork: [
                 { src: song.image, sizes: '96x96', type: 'image/png' },
                 { src: song.image, sizes: '128x128', type: 'image/png' },
@@ -322,11 +322,15 @@ function updateMediaSession(song) {
         });
 
         // Define actions for media controls
-        navigator.mediaSession.setActionHandler('previoustrack', moveBackward);
-        navigator.mediaSession.setActionHandler('nexttrack', moveAhead);
+        navigator.mediaSession.setActionHandler('previoustrack', moveBackward); // Moves to the previous track
+        navigator.mediaSession.setActionHandler('nexttrack', moveForward);     // Moves to the next track
     }
 }
 
+// Helper function to return the site name
+function siteName() {
+    return "Zolt"; // Replace with your site name or logic
+}
 
 
 //dynamic color systummmmmmmm 
