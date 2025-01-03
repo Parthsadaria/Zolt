@@ -308,10 +308,12 @@ songRepeatBtn.addEventListener('click', () => {
 // Function to update Media Session metadata
 function updateMediaSession(song) {
     if ('mediaSession' in navigator) {
-        // Update media session metadata
+        const audioPlayer = document.getElementById('audioPlayer'); // Get audio player element
+
+        // Update Media Session metadata
         navigator.mediaSession.metadata = new MediaMetadata({
             title: song.name,
-            artist: `${song.artist} - ${siteName()}`, // Artist name and site name
+            artist: song.artist,
             artwork: [
                 { src: song.image, sizes: '96x96', type: 'image/png' },
                 { src: song.image, sizes: '128x128', type: 'image/png' },
@@ -322,9 +324,20 @@ function updateMediaSession(song) {
             ]
         });
 
+        // Sync playback position with audio player
+        navigator.mediaSession.playbackState = audioPlayer.paused ? 'paused' : 'playing';
+
+        if (navigator.mediaSession.setPositionState) {
+            navigator.mediaSession.setPositionState({
+                duration: audioPlayer.duration || 0, // Total duration of the song
+                playbackRate: audioPlayer.playbackRate || 1, // Playback rate (e.g., 1x)
+                position: audioPlayer.currentTime || 0, // Current playback position
+            });
+        }
+
         // Define actions for media controls
         navigator.mediaSession.setActionHandler('previoustrack', moveBackward); // Moves to the previous track
-        navigator.mediaSession.setActionHandler('nexttrack', moveAhead);     // Moves to the next track
+        navigator.mediaSession.setActionHandler('nexttrack', moveForward);     // Moves to the next track
     }
 }
 
