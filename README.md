@@ -42,12 +42,6 @@ ZOLT/
     └── playlistmanager.js  # Playlist handling functionality
 ```
 
-## Screenshots
-![image](https://github.com/user-attachments/assets/31beba37-09c2-494b-aced-b8fba05c3a3c)
-![image](https://github.com/user-attachments/assets/b36ba82b-3248-447c-89d6-9a4e4768aa6f)
-![image](https://github.com/user-attachments/assets/0fcbc6bf-afea-4fd7-9b9d-1dc347bd9ba2)
-
-
 
 
 ## Installation
