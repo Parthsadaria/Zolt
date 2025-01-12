@@ -30,8 +30,6 @@ ZOLT Music is an open-source music streaming application built with vanilla Java
 - 🔗 **Integration with JioSaavn's open-source API**
 - 🔷 **Dedicated credits page acknowledging all contributors**
 
-![Features Preview](https://via.placeholder.com/800x400.png?text=ZOLT+Features+Preview)
-
 ---
 
 ## Technology Stack
@@ -40,8 +38,6 @@ ZOLT Music is an open-source music streaming application built with vanilla Java
 - **CSS3**
 - **Vanilla JavaScript**
 - **JioSaavn API Integration**
-
-![Technology Stack](https://via.placeholder.com/800x400.png?text=HTML+CSS+JavaScript+API+Integration)
 
 ---
 
@@ -67,7 +63,7 @@ ZOLT/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/ZOLT.git
+   git clone https://github.com/parthsadaria/ZOLT.git
    ```
 
 2. Navigate to the project directory:
