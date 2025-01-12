@@ -2,33 +2,52 @@
 
 Welcome to ZOLT Music - a modern, web-based music streaming platform that leverages the JioSaavn API to bring your favorite tunes to life.
 
+---
+
+![GitHub Repo stars](https://img.shields.io/github/stars/parthsadaria/ZOLT?style=social) ![GitHub forks](https://img.shields.io/github/forks/parthsadaria/ZOLT?style=social) ![GitHub license](https://img.shields.io/github/license/parthsadaria/ZOLT) ![Website](https://img.shields.io/website?url=https%3A%2F%2Fzolt.netlify.app) ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)
+---
+
 ## Overview
 
 ZOLT Music is an open-source music streaming application built with vanilla JavaScript, HTML, and CSS. Our goal is to provide a seamless music listening experience with a clean, intuitive interface.
 
+---
+
 ## Live Demo
 
-Experience ZOLT Music live at: [https://zolt.netlify.app/](https://zolt.netlify.app/)
+**Experience ZOLT Music live at:** [https://zolt.netlify.app/](https://zolt.netlify.app/)
+
+![ZOLT Music UI](https://via.placeholder.com/800x400.png?text=ZOLT+Music+User+Interface)
+
+---
 
 ## Features
 
-- Clean and modern user interface
-- Seamless music playback
-- Search functionality for tracks and artists
-- Responsive design for all devices
-- Integration with JioSaavn's open-source API
-- Dedicated credits page acknowledging all contributors
+- 🌐 **Clean and modern user interface**
+- 🎶 **Seamless music playback**
+- ⚡ **Search functionality for tracks and artists**
+- 🎨 **Responsive design for all devices**
+- 🔗 **Integration with JioSaavn's open-source API**
+- 🔷 **Dedicated credits page acknowledging all contributors**
+
+![Features Preview](https://via.placeholder.com/800x400.png?text=ZOLT+Features+Preview)
+
+---
 
 ## Technology Stack
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- JioSaavn API Integration
+- **HTML5**
+- **CSS3**
+- **Vanilla JavaScript**
+- **JioSaavn API Integration**
+
+![Technology Stack](https://via.placeholder.com/800x400.png?text=HTML+CSS+JavaScript+API+Integration)
+
+---
 
 ## Project Structure
 
-```
+```plaintext
 ZOLT/
 ├── CREDITS/              # Credits section
 │   ├── credits.html     # Credits page layout
@@ -42,7 +61,7 @@ ZOLT/
     └── playlistmanager.js  # Playlist handling functionality
 ```
 
-
+---
 
 ## Installation
 
@@ -58,9 +77,15 @@ ZOLT/
 
 3. Open `index.html` in your preferred browser or use a local server.
 
+![Installation Process](https://via.placeholder.com/800x400.png?text=Clone+Run+Explore)
+
+---
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit a Pull Request.
+
+---
 
 ### Contributors
 
@@ -81,9 +106,15 @@ We welcome contributions! Please feel free to submit a Pull Request.
   </tr>
 </table>
 
+---
+
 ## License
 
 This project is open source and available under the MIT License.
+
+![License Badge](https://img.shields.io/badge/license-MIT-blue)
+
+---
 
 ## Acknowledgments
 
@@ -91,10 +122,15 @@ This project is open source and available under the MIT License.
 - All our amazing contributors
 - The open-source community
 
+![Acknowledgments](https://via.placeholder.com/800x400.png?text=Thank+You+Contributors!)
+
+---
+
 ## Support
 
 If you encounter any issues or have questions, please open an issue in the repository.
 
 ---
 
-Made with ❤️ by the ZOLT team
+**Made with ❤️ by the ZOLT team**
+
