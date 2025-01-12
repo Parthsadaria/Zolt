@@ -17,7 +17,8 @@ ZOLT Music is an open-source music streaming application built with vanilla Java
 
 **Experience ZOLT Music live at:** [https://zolt.netlify.app/](https://zolt.netlify.app/)
 
-![ZOLT Music UI](https://via.placeholder.com/800x400.png?text=ZOLT+Music+User+Interface)
+![ZOLT Music UI 1](preview/home.png)
+![ZOLT Music UI 2](preview/post_search.png)
 
 ---
 
