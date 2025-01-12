@@ -2,11 +2,6 @@
 
 Welcome to ZOLT Music - a modern, web-based music streaming platform that leverages the JioSaavn API to bring your favorite tunes to life.
 
----
-
-![GitHub Repo stars](https://img.shields.io/github/stars/parthsadaria/ZOLT?style=social) ![GitHub forks](https://img.shields.io/github/forks/parthsadaria/ZOLT?style=social) ![GitHub license](https://img.shields.io/github/license/parthsadaria/ZOLT) ![Website](https://img.shields.io/website?url=https%3A%2F%2Fzolt.netlify.app) ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)
----
-
 ## Overview
 
 ZOLT Music is an open-source music streaming application built with vanilla JavaScript, HTML, and CSS. Our goal is to provide a seamless music listening experience with a clean, intuitive interface.
