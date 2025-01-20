@@ -444,8 +444,13 @@ body::-webkit-scrollbar {
     left: 1rem;
     margin-bottom: 20px;
     margin-right: 200px;
-    background-color: rgba(0, 0, 0, 0.5); 
-    backdrop-filter: blur(10px);
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.4)
+    ); /* Subtle black gradient */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
 }
 
 .close-btn {
