@@ -12,11 +12,16 @@
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <meta property="og:title" content="🎵 Zolt Music">
-    <meta property="og:description" content="🎶 Enjoy your favorite music in crystal-clear 320kbps! 🎧 Download songs, create playlists, and vibe with our sleek & modern UI. ✨">
+    <meta property="og:description"
+        content="🎶 Enjoy your favorite music in crystal-clear 320kbps! 🎧 Download songs, create playlists, and vibe with our sleek & modern UI. ✨">
     <meta property="og:image" content="favicon.png">
     <meta property="og:url" content="https://zolt.netlify.app">
     <meta property="og:type" content="website">
 </head>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/browser-id3-writer@4.0.0/dist/browser-id3-writer.min.js"></script>
+
 <body>
     <button class="aboutus" onclick="gotocredits()">ABOUT DEVS</button>
     <div id="sidebar">
@@ -40,7 +45,7 @@
     </div>
     <button id="openPlayerBtn">
         <img src="https://img.icons8.com/material-sharp/24/FFFFFF/hide-sidepanel.png" alt="Open Player">
-      </button>
+    </button>
     <div id="customPlayer" class="custom-player">
         <button id="closePlayer" class="close-btn"><img width="30" height="30"
                 src="https://img.icons8.com/ios-glyphs/30/FFFFFF/multiply.png" alt="multiply" /></button>
@@ -51,41 +56,153 @@
                 <p id="currentArtistName" class="current-artist-name"></p>
             </div>
         </div>
-        <audio id="audioPlayer" class="current-song-player" controls>
-            <source id="audioSource" type="audio/mp4">
-            Your browser does not support the audio element.
-        </audio>
+        <div class="plyr-audio-wrapper">
+            <div class="plyr-audio-wrapper">
+                <audio id="audioPlayer" crossorigin="anonymous" class="plyr-audio">
+                    <source id="audioSource" crossorigin="anonymous" type="audio/mp4">
+                    Your browser does not support the audio element.
+                </audio>
+                <div id="custom-audio-controls" class="custom-audio-controls">
+                    <br><br>
+                    <button id="playPauseBtn" class="player-btn">
+                        <img id="playPauseIcon" src="https://img.icons8.com/ios-filled/50/FFFFFF/play--v1.png"
+                            alt="Play" width="28" />
+                    </button>
+                    <span id="currentTime" class="player-time">0:00</span>
+                    <input type="range" id="progressBar" class="player-progress" value="0" min="0" max="100" step="1">
+                    <span id="duration" class="player-time">0:00</span>
+                    <button id="muteBtn" class="player-btn">
+                        <img id="muteIcon" src="https://img.icons8.com/ios-filled/50/FFFFFF/medium-volume.png"
+                            alt="Mute" width="22" />
+                    </button>
+                    <input type="range" id="volumeBar" class="player-volume" min="0" max="1" step="0.01" value="1">
+                    <!-- Add after volumeBar in index.html -->
+
+                    <!-- ...existing code... -->
+                </div>
+            </div>
+        </div>
+
         <div class="control-btns">
             <button class="for-back-btn" onclick="moveBackward()"><img
                     src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>
-           
-            <button class="song-download-btn"><img
-                height="35"
-                width="35"
-                style="padding-top: 5px;"
+            <button class="song-download-btn"><img height="35" width="35" style="padding-top: 5px;"
                     src="https://img.icons8.com/fluency-systems-filled/256/FFFFFF/downloading-updates.png"
                     id="songDownloadBtn"></button>
+            <button class="song-share-btn" id="songShareBtn" class="songshare" title="Share Song">
+                <img height="35" width="35" src="https://img.icons8.com/material-sharp/24/FFFFFF/share.png" alt="Share" />
+            </button>
             <button class="song-repeat-btn" id="songRepeatBtn">
-                        <img src="https://img.icons8.com/metro/26/FFFFFF/repeat.png" alt="Repeat" id="repeatIcon">
-                      </button>
-             <button class="for-next-btn" onclick="moveAhead()"><img
-                    src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>                      
+                <img src="https://img.icons8.com/metro/26/FFFFFF/repeat.png" alt="Repeat" id="repeatIcon">
+            </button>
+            <button class="for-next-btn" onclick="moveAhead()"><img
+                    src="https://img.icons8.com/ios-filled/50/FFFFFF/end--v1.png"></button>
+
+            <button id="fullscreenPlayer" class="fullscreen-btn" title="Fullscreen">
+                <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/FFFFFF/full-screen.png"
+                    alt="Fullscreen" />
+            </button>
+            <button id="settingsBtn" class="settings-btn" title="Settings">
+                <img width="28" height="28" src="https://img.icons8.com/ios-filled/50/FFFFFF/settings.png"
+                    alt="Settings" />
+            </button>
         </div>
         <div class="queue" id="custom-queue">QUEUE</div>
+
+    </div>
+    <div id="fullscreenOverlay">
+        <div class="fullscreen-content">
+            <button id="closeFullscreenBtn" title="Close Fullscreen">
+                <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/multiply.png" alt="Close" />
+            </button>
+            <img id="fullscreenSongImage" class="fullscreen-song-image" src="" alt="Song Image" />
+            <div class="fullscreen-song-info">
+                <h2 id="fullscreenSongTitle" class="fullscreen-song-title"></h2>
+                <p id="fullscreenArtistName" class="fullscreen-artist-name"></p>
+                <div class="fullscreen-player-controls">
+                    <!-- We'll move the audio player here dynamically -->
+                </div>
+                <button id="showLyricsBtn" class="lyrics-btn">Show Lyrics</button>
+                <div id="lyricsContainer" class="lyrics-container" style="display:none; scrollbar-width: 0;"></div>
+
+            </div>
+        </div>
+    </div>
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-modal-content">
+            <span class="close-settings" id="closeSettingsBtn">&times;</span>
+            <h2>Audio Effects</h2>
+            <div class="audio-effects">
+                <div class="effect-row">
+                    <img src="https://img.icons8.com/ios-filled/50/94d82d/bass-clef.png" class="effect-icon" alt="Bass">
+                    <span class="effect-label">Bass Boost</span>
+                    <label class="switch">
+                        <input type="checkbox" id="bassBoostToggle">
+                        <span class="slider-switch"></span>
+                    </label>
+                    <input type="range" id="bassBoostSlider" class="effect-slider" min="0" max="30" value="15"
+                        style="display:none;">
+                </div>
+                <div class="effect-row">
+                    <img src="https://img.icons8.com/ios-filled/50/94d82d/treble-clef.png" class="effect-icon"
+                        alt="Treble">
+                    <span class="effect-label">Treble Boost</span>
+                    <label class="switch">
+                        <input type="checkbox" id="trebleBoostToggle">
+                        <span class="slider-switch"></span>
+                    </label>
+                    <input type="range" id="trebleBoostSlider" class="effect-slider" min="-30" max="30" value="0"
+                        style="display:none;">
+                </div>
+                <div class="effect-row">
+        <img src="https://img.icons8.com/ios-filled/50/94d82d/equalizer.png" class="effect-icon" alt="Equalizer">
+        <span class="effect-label">Equalizer</span>
+        <label class="switch">
+            <input type="checkbox" id="eqToggle">
+            <span class="slider-switch"></span>
+        </label>
+       <div id="eqSliders" style="display:none; margin-left: 20px;">
+    <input type="range" class="eq-band" data-band="0" min="-12" max="12" value="0" step="0.1" title="60Hz">
+    <input type="range" class="eq-band" data-band="1" min="-12" max="12" value="0" step="0.1" title="230Hz">
+    <input type="range" class="eq-band" data-band="2" min="-12" max="12" value="0" step="0.1" title="910Hz">
+    <input type="range" class="eq-band" data-band="3" min="-12" max="12" value="0" step="0.1" title="3.6kHz">
+    <input type="range" class="eq-band" data-band="4" min="-12" max="12" value="0" step="0.1" title="14kHz">
+    <canvas id="eqVisualizer" width="260" height="60" style="display:block;margin-top:10px;background:#181818;border-radius:8px;"></canvas>
+</div>
+    </div>
+            </div>
+        </div>
+    </div>
     </div>
     <script src="script.js"></script>
+    <script src="audio_effects.js"></script>
     <script src="playlistmanager.js"></script>
     <script>
         const leftcont = document.getElementById('left-container');
         const openSidebarBtn = document.getElementById('open-sidebar-btn');
         const openPlayerBtn = document.getElementById('openPlayerBtn');
+        const customPlayer = document.getElementById('customPlayer');
         openSidebarBtn.addEventListener('click', () => {
             leftcont.classList.toggle('show');
         });
         openPlayerBtn.addEventListener('click', () => {
-      customPlayer.classList.add('show');
-      openPlayerBtn.classList.add('hidden'); // Hide the open button when the player is shown
-    });
+            customPlayer.classList.add('show');
+            openPlayerBtn.classList.add('hidden'); // Hide the open button when the player is shown
+        });
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+
+        settingsBtn.addEventListener('click', () => {
+            settingsModal.classList.add('active');
+        });
+        closeSettingsBtn.addEventListener('click', () => {
+            settingsModal.classList.remove('active');
+        });
+        // Optional: close modal when clicking outside content
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) settingsModal.classList.remove('active');
+        });
     </script>
 </body>
 

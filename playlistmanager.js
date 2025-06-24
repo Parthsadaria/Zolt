@@ -84,14 +84,6 @@ function updatePlaylistsDisplay() {
                     ${playlistName}
                     <span class="dropdown-arrow">▼</span>
                 </h3>
-                <ul id="playlist-${playlistName}" class="songs-list" style="display: none;">
-                    ${songs.map(song => `
-                        <li>
-                            <img src="${song.image}" alt="${song.name}" class="song-image"style="width: 50px; height: 50px; margin-right: 10px;">
-                            <strong>${song.name}</strong> - <em>${song.artists || "Unknown Artist"}</em>
-                        </li>
-                    `).join('')}
-                </ul>
                 <button class="play-playlist-btn" onclick="playPlaylist('${playlistName}')">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0,0,256,256">
                         <g fill="#94d82d" fill-rule="nonzero">
@@ -103,13 +95,57 @@ function updatePlaylistsDisplay() {
                 </button>
                 <button class="add-del-btns" onclick="deletePlaylist('${playlistName}')">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5555 4C10.099 4 9.70052 4.30906 9.58693 4.75114L9.29382 5.8919H14.715L14.4219 4.75114C14.3083 4.30906 13.9098 4 13.4533 4H10.5555ZM16.7799 5.8919L16.3589 4.25342C16.0182 2.92719 14.8226 2 13.4533 2H10.5555C9.18616 2 7.99062 2.92719 7.64985 4.25342L7.22886 5.8919H4C3.44772 5.8919 3 6.33961 3 6.8919C3 7.44418 3.44772 7.8919 4 7.8919H4.10069L5.31544 19.3172C5.47763 20.8427 6.76455 22 8.29863 22H15.7014C17.2354 22 18.5224 20.8427 18.6846 19.3172L19.8993 7.8919H20C20.5523 7.8919 21 7.44418 21 6.8919C21 6.33961 20.5523 5.8919 20 5.8919H16.7799ZM17.888 7.8919H6.11196L7.30423 19.1057C7.3583 19.6142 7.78727 20 8.29863 20H15.7014C16.2127 20 16.6417 19.6142 16.6958 19.1057L17.888 7.8919ZM10 10C10.5523 10 11 10.4477 11 11V16C11 16.5523 10.5523 17 10 17C9.44772 17 9 16.5523 9 16V11C9 10.4477 9.44772 10 10 10ZM14 10C14.5523 10 15 10.4477 15 11V16C15 16.5523 14.5523 17 14 17C13.4477 17 13 16.5523 13 16V11C13 10.4477 13.4477 10 14 10Z" fill="#e32938"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5555 4C10.099 4 9.70052 4.30906 9.58693 4.75114L9.29382 5.8919H14.715L14.4219 4.75114C14.3083 4.30906 13.9098 4 13.4533 4H10.5555ZM16.7799 5.8919L16.3589 4.25342C16.0182 2.92719 14.8226 2 13.4533 2H10.5555C9.18616 2 7.99062 2.92719 7.64985 4.25342L7.22886 5.8919H4C3.44772 5.8919 3 6.33961 3 6.8919C3 7.44418 3.44772 7.8919 4 7.8919H4.10069L5.31544 19.3172C5.47763 20.8427 6.76455 22 8.29863 22H15.7014C17.2354 22 18.5224 20.8427 18.6846 19.3172L19.8993 7.8919H20C20.5523 7.8919 21 7.44418 21 6.8919C21 6.33961 20.5523 5.8919 20 5.8919H16.7799ZM17.888 7.8919H6.11196L7.30423 19.1057C7.3583 19.6142 7.78727 20 8.29863 20H15.7014C16.2127 20 16.6417 19.6142 16.6958 19.1057L17.888 7.8919ZM10 10C10.5523 10 11 10.4477 11 11V16C11 16.5523 10.5523 17 10 17C9.44772 17 9 16.5523 9 16V11C9 10.4477 9.4477 10 10 10ZM14 10C14.5523 10 15 10.4477 15 11V16C15 16.5523 14.5523 17 14 17C13.4477 17 13 16.5523 13 16V11C13 10.4477 13.4477 10 14 10Z" fill="#e32938"></path>
                     </svg>
                 </button>
+                <ul id="playlist-${playlistName}" class="songs-list" style="display: none;">
+                    ${
+                        songs.length === 0
+                        ? `<li style="color:gray;font-size:0.9em;">No songs in this playlist.</li>`
+                        : songs.map((song, idx) => `
+                        <li style="display:flex;align-items:center;justify-content:space-between;">
+                            <div style="display:flex;align-items:center;cursor:pointer;" onclick="playSongFromPlaylist('${playlistName}',${idx})">
+                                <img src="${song.image}" alt="${song.name}" class="song-image" style="width: 40px; height: 40px; margin-right: 10px;">
+                                <span><strong>${song.name}</strong> - <em>${song.artists || song.artist || "Unknown Artist"}</em></span>
+                            </div>
+                            <button class="remove-song-btn" title="Remove from playlist" onclick="event.stopPropagation();removeSongFromPlaylist('${playlistName}',${idx})" style="background:none;border:none;cursor:pointer;">
+                                <img src="https://img.icons8.com/ios-glyphs/24/e32938/trash.png" alt="Remove" />
+                            </button>
+                        </li>
+                    `).join('')
+                    }
+                </ul>
             </div>
         `;
     }).join('');
 }
+
+// Play a song from a playlist by index
+window.playSongFromPlaylist = function(playlistName, songIdx) {
+    const playlists = getPlaylists();
+    const songs = playlists[playlistName];
+    if (!songs || !songs[songIdx]) return;
+    // Play this song (add to queue if not present, or just play)
+    playSong(songs[songIdx].url, songs[songIdx].name, songs[songIdx].artists || songs[songIdx].artist, songs[songIdx].image);
+};
+
+// Remove a song from a playlist
+window.removeSongFromPlaylist = function(playlistName, songIndex) {
+    const playlists = getPlaylists();
+    if (!playlists[playlistName]) {
+        alert('Playlist not found.');
+        return;
+    }
+    if (!playlists[playlistName][songIndex]) {
+        alert('Song not found in playlist.');
+        return;
+    }
+    if (confirm(`Remove "${playlists[playlistName][songIndex].name}" from "${playlistName}"?`)) {
+        playlists[playlistName].splice(songIndex, 1);
+        savePlaylists(playlists);
+        updatePlaylistsDisplay();
+    }
+};
 
 function togglePlaylist(playlistName) {
     const playlist = document.getElementById(`playlist-${playlistName}`);
