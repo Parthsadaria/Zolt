@@ -701,7 +701,10 @@ body::-webkit-scrollbar {
 
 .control-btns {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; 
 }
 
 /* Settings Modal Styles */
@@ -763,295 +766,6 @@ body::-webkit-scrollbar {
     transform: scale(1.12);
 }
 
-/* Tablets (481px - 768px) */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .title {
-        font-size: 4rem;
-        top: 30%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .subtitle {
-        top: 45%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .search_bar {
-        width: 40%;
-        top: 55%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .aboutus {
-        top: 20px;
-        right: 20px;
-        position: fixed;
-        z-index: 1000;
-        font-size: 12px;
-    }
-
-    .opensidebar {
-        top: 20px;
-        left: 20px;
-        position: fixed;
-        z-index: 1000;
-    }
-
-    .title-move {
-        font-size: 2.5rem;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .search_bar-move {
-        top: 70px;
-        margin-top: 0;
-    }
-
-    .results {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        width: 90%;
-        top: 150px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 1rem;
-    }
-}
-
-/* Mobile devices (up to 480px) */
-@media screen and (max-width: 480px) {
-    .title {
-        font-size: 3.5rem;
-        top: 30%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .subtitle {
-        font-size: 12px;
-        top: 45%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .search_bar {
-        width: 10rem;
-        top: 55%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1;
-    }
-
-    .aboutus {
-        z-index: 1000;
-        font-size: 10px;
-        transform: translate(-11rem);
-    }
-
-    .opensidebar {
-        top: 15px;
-        left: 15px;
-        position: fixed;
-        z-index: 1000;
-    }
-
-    .title-move {
-        font-size: 2rem;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .search_bar-move {
-        top: 60px;
-        margin-top: 0;
-    }
-
-    .results {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        width: 80%;
-        top: 100px;
-        left: 60%;
-        transform: translateX(-50%);
-        padding: 0.5rem;
-    }
-
-    .left-container {
-        z-index: 9;
-    }
-
-    .add-to-playlist-btn {
-        margin-right: 3rem;
-    }
-}
-
-/* Landscape orientation for mobile devices */
-@media screen and (max-height: 480px) and (orientation: landscape) {
-    .title {
-        font-size: 3rem;
-        top: 25%;
-    }
-
-    .subtitle {
-        top: 45%;
-    }
-
-    .search_bar {
-        width: 40%;
-        top: 60%;
-        z-index: 1;
-    }
-
-    .left-container {
-        z-index: 9;
-    }
-
-    .aboutus {
-        z-index: 1000;
-        width: max-content;
-        font-size: 10px;
-        transform: translate(-11rem);
-    }
-
-    .opensidebar {
-        top: 15px;
-        left: 15px;
-        position: fixed;
-        z-index: 1000;
-    }
-
-    .title-move {
-        font-size: 2rem;
-        top: 10px;
-    }
-
-    .search_bar-move {
-        top: 60px;
-        margin-top: 0;
-    }
-
-    .results {
-        top: 120px;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        padding: 0.5rem;
-    }
-
-    .custom-player {
-        height: 100vh;
-    }
-
-    .current-song-image {
-        height: 8rem;
-        width: 8rem;
-    }
-
-    .queue {
-        max-height: 100px;
-    }
-
-    .add-to-playlist-btn {
-        position: relative;
-        margin: 5px;
-        left: 5px;
-    }
-}
-
-@media screen and (min-width: 481px) and (max-width: 767px) {
-    .aboutus {
-        z-index: 1000;
-        width: max-content;
-        font-size: 10px;
-        transform: translate(-11rem);
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .aboutus {
-        z-index: 1000;
-        width: max-content;
-        font-size: 10px;
-        transform: translate(-11rem, 3rem);
-    }
-
-    .opensidebar {
-        z-index: 1;
-    }
-
-    .left-container {
-        z-index: 1;
-    }
-
-    .search_bar {
-        z-index: 1;
-    }
-
-    .results {
-        padding: 0.5rem;
-    }
-
-    .add-to-playlist-btn {
-        margin-right: 3rem;
-    }
-}
-
-@media screen and (min-width: 820px) {
-    .aboutus {
-        z-index: 1000;
-        width: max-content;
-        font-size: 10px;
-        transform: translate(-9rem, 3rem);
-    }
-
-    .opensidebar {
-        z-index: 1;
-    }
-
-    .left-container {
-        z-index: 1;
-    }
-
-    .search_bar {
-        z-index: 1;
-    }
-
-    .results {
-        padding: 0.5rem;
-    }
-
-    .add-to-playlist-btn {
-        margin-right: 3rem;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .aboutus {
-        z-index: 9;
-        width: max-content;
-        font-size: 10px;
-        transform: translate(-9rem, 3rem);
-    }
-
-    .results {
-        padding: 0.2rem;
-    }
-}
-
-/* For high DPI devices */
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-    .search_bar {
-        background-size: 25px 25px;
-    }
-}
-
-
 /* --- Fullscreen Player Overlay Styles --- */
 #fullscreenOverlay {
     position: fixed;
@@ -1079,14 +793,13 @@ body::-webkit-scrollbar {
 
 #fullscreenOverlay .control-btns {
     display: flex;
-    justify-content: left;
+    justify-content: center;
 }
 
 .fullscreen-content {
     display: flex;
     height: 75vh;
     width: 85vw;
-    max-width: 1200px;
     flex-direction: row;
     align-items: center;
     background: linear-gradient(145deg, rgba(20, 20, 20, 0.95) 0%, rgba(40, 40, 40, 0.9) 100%);
@@ -1098,8 +811,8 @@ body::-webkit-scrollbar {
         0 0 0 1px rgba(255, 255, 255, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     padding: 60px 80px;
-    gap: 70px;
-    position: relative;
+    gap: 50px;
+    position: absolute;
     animation: slideInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -1149,7 +862,7 @@ body::-webkit-scrollbar {
 }
 
 .fullscreen-song-title {
-    font-size: 3re;
+    font-size: 3rem;
     font-weight: 800;
     color: #ffffff;
     margin: 0;
@@ -1206,70 +919,6 @@ body::-webkit-scrollbar {
     transition: all 0.2s ease;
 }
 
-/* Responsive */
-@media (max-width: 1100px) {
-    .fullscreen-content {
-        width: 90vw;
-        padding: 40px 50px;
-        gap: 50px;
-    }
-
-    .fullscreen-song-image {
-        width: 350px;
-        height: 350px;
-    }
-
-    .fullscreen-song-title {
-        font-size: 3.5rem;
-    }
-}
-
-@media (max-width: 900px) {
-    .fullscreen-content {
-        flex-direction: column;
-        width: 95vw;
-        height: 90vh;
-        padding: 40px 30px;
-        gap: 30px;
-        text-align: center;
-    }
-
-    .fullscreen-song-image {
-        width: 280px;
-        height: 280px;
-    }
-
-    .fullscreen-song-title {
-        font-size: 2.8rem;
-    }
-
-    .fullscreen-artist-name {
-        font-size: 1.2rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .fullscreen-content {
-        padding: 30px 20px;
-        border-radius: 30px;
-    }
-
-    .fullscreen-song-image {
-        width: 220px;
-        height: 220px;
-    }
-
-    .fullscreen-song-title {
-        font-size: 2.2rem;
-    }
-
-    #closeFullscreenBtn {
-        top: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-    }
-}
 
 .custom-audio-controls {
     display: flex;
@@ -1339,15 +988,9 @@ body::-webkit-scrollbar {
     width: 70px;
     transform: rotate(0deg);
     accent-color: #3e3e3e;
-    /* Make it vertical */
-    /* writing-mode: bt-lr; For Firefox */
-    /* -webkit-appearance: slider-vertical; For Chrome/Safari */
-    /* appearance: slider-vertical; */
     height: 20px;
-    width: 60px;
     margin-left: 8px;
-    display: none;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.2s;
 }
 
@@ -1393,32 +1036,36 @@ body::-webkit-scrollbar {
 }
 
 .lyrics-container {
-    max-height: 260px;
-    width: 100%;
-    max-width: 100vw;
+    max-height: 300px;
+    width: 30%;
+    max-width: 40vw;
     box-sizing: border-box;
     overflow-y: auto;
     background: rgba(0, 0, 0, 0.25);
     border-radius: 18px;
-    padding: 18px 24px;
+    padding: 10px 24px;
     color: #fff;
     font-family: Plus Jakarta Sans;
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 2.1;
     text-align: center;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
-    position: relative;
+    position: absolute;
+    right: 20px;
+    z-index: 9999;
     min-height: 120px;
     transition: background 0.3s;
 }
+
 .lyrics-container::-webkit-scrollbar {
     display: none;
 }
+
 .lyric-line {
     opacity: 0.3;
     transform: scale(0.96);
     filter: blur(3px);
-    transition: 
+    transition:
         opacity 0.01s ease-in-out,
         transform 0.01s ease-in-out,
         filter 0.01s ease-in-out;
@@ -1436,27 +1083,8 @@ body::-webkit-scrollbar {
     color: #fff;
     font-size: 1.5em;
     font-weight: 700;
-    text-shadow: 
+    text-shadow:
         0 0 6px #000000,
-}
-
-@media (max-width: 600px) {
-    .fullscreen-song-info {
-        position: relative;
-    }
-
-    .lyrics-container {
-        position: absolute;
-        bottom: 392px;
-        margin: 1px;
-        width: 100vh;
-
-        /* height: 200px; */
-        font-size: 5px;
-        /* padding: 10px 6px; */
-        right: -40px;
-
-    }
 }
 
 /* --- Audio Effects Modern UI --- */
