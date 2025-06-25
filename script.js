@@ -937,7 +937,7 @@ function parseLRC(lrc) {
 // Use new API bro
 async function fetchLyrics(song, artist) {
     const query = `${song} ${artist}`;
-    const url = `https://dev-paxsenix.koyeb.app/lyrics/lrcget?q=${encodeURIComponent(query)}`;
+    const url = `https://api.paxsenix.biz.id/lyrics/lrcget?q=${encodeURIComponent(query)}`;
     try {
         const res = await fetch(url);
         const data = await res.json();
