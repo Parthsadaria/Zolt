@@ -72,6 +72,8 @@ async function setupProxyAudio() {
         for (let i = 0; i < nodeChain.length - 1; i++) {
             nodeChain[i].connect(nodeChain[i + 1]);
         }
+        // Connect the last node to destination
+        nodeChain[nodeChain.length - 1].connect(audioCtx.destination);
 
         proxyReady = true;
 
@@ -85,15 +87,30 @@ async function setupProxyAudio() {
     }
 }
 
-// Enable/disable effects
+// Enable/disable effects - FIXED VERSION
 function updateEffects() {
-    if (bassBoostToggle.checked || trebleBoostToggle.checked || eqToggle.checked) {
-        setupProxyAudio();
+    const anyEffectEnabled = bassBoostToggle.checked || trebleBoostToggle.checked || eqToggle.checked;
+    
+    if (anyEffectEnabled) {
+        // If any effect is enabled, setup the proxy audio chain
+        if (!proxyReady) {
+            setupProxyAudio();
+        } else {
+            // Update existing effects
+            if (bassEQ) bassEQ.gain.value = bassBoostToggle.checked ? parseFloat(bassBoostSlider.value) : 0;
+            if (trebleEQ) trebleEQ.gain.value = trebleBoostToggle.checked ? parseFloat(trebleBoostSlider.value) : 0;
+            eqFilters.forEach((filter, i) => {
+                if (filter) {
+                    filter.gain.value = eqToggle.checked
+                        ? parseFloat(eqSliders.querySelector(`.eq-band[data-band="${i}"]`).value)
+                        : 0;
+                }
+            });
+        }
     } else {
-        if (bassEQ) bassEQ.gain.value = 0;
-        if (trebleEQ) trebleEQ.gain.value = 0;
-        eqFilters.forEach(f => { if (f) f.gain.value = 0; });
-        stopEQVisualizer();
+        // If no effects are enabled, remove proxy audio entirely
+        // This allows the original audio element to play normally
+        removeProxyAudio();
     }
 }
 
@@ -142,7 +159,7 @@ eqSliders.querySelectorAll('.eq-band').forEach((slider, idx) => {
 
 // Handle song changes
 function onSongChangeForEffects() {
-    if (bassBoostToggle.checked || trebleBoostToggle.checked) {
+    if (bassBoostToggle.checked || trebleBoostToggle.checked || eqToggle.checked) {
         setTimeout(setupProxyAudio, 100);
     }
 }

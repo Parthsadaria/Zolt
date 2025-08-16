@@ -734,13 +734,13 @@ function showLikedSongs() {
 
 // --- AUTOPLAY SONG FROM URL PARAMS ON PAGE LOAD ---
 window.addEventListener('DOMContentLoaded', async () => {
-    // Helper to get URL params
     function getParam(name) {
         const url = new URL(window.location.href);
         return url.searchParams.get(name);
     }
     const songName = getParam('songname');
     const artistName = getParam('artist');
+    const playlistName = getParam('playlist');
     if (songName && artistName) {
         // Optionally, show loading UI here
         // Use your search API to find the song
@@ -761,6 +761,49 @@ window.addEventListener('DOMContentLoaded', async () => {
             alert("Error loading song from link.");
         }
     }
+    if (playlistName) {
+        // Play the playlist if it exists
+        if (typeof playPlaylist === 'function') {
+            playPlaylist(playlistName);
+        }
+    }
+});
+
+window.addEventListener('DOMContentLoaded', async () => {
+    function getParam(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+    const playlistName = getParam('playlistname');
+    const playlistData = getParam('playlistdata');
+    if (playlistName && playlistData) {
+        try {
+            const songs = JSON.parse(decodeURIComponent(playlistData));
+            if (Array.isArray(songs) && songs.length > 0) {
+                // Get existing playlists
+                let playlists = JSON.parse(localStorage.getItem('playlists') || '{}');
+                // If playlist already exists, do not overwrite, just add new songs
+                if (!playlists[playlistName]) {
+                    playlists[playlistName] = [];
+                }
+                // Add songs if not already present (by URL)
+                songs.forEach(song => {
+                    if (!playlists[playlistName].some(s => s.url === song.url)) {
+                        playlists[playlistName].push(song);
+                    }
+                });
+                localStorage.setItem('playlists', JSON.stringify(playlists));
+                // Update playlist display if function exists
+                if (typeof updatePlaylistsDisplay === 'function') {
+                    updatePlaylistsDisplay();
+                }
+                alert(`Playlist "${playlistName}" imported to your playlists!`);
+            }
+        } catch (e) {
+            alert("Error importing shared playlist.");
+        }
+    }
+    // ...existing code for songname/artist and old playlistName...
 });
 
 // --- FULLSCREEN PLAYER BUG FIX ---
