@@ -152,7 +152,7 @@ window.removeSongFromPlaylist = function(playlistName, songIndex) {
     }
 };
 
-window.sharePlaylist = function(playlistName) {
+window.sharePlaylist = async function(playlistName) {
     const playlists = getPlaylists();
     const songs = playlists[playlistName];
     if (!songs || songs.length === 0) {
@@ -162,16 +162,41 @@ window.sharePlaylist = function(playlistName) {
     // Encode songs as JSON and then URI
     const playlistData = encodeURIComponent(JSON.stringify(songs));
     const url = `${window.location.origin}${window.location.pathname}?playlistname=${encodeURIComponent(playlistName)}&playlistdata=${playlistData}`;
-    const shareData = {
-        title: `${playlistName} | Zolt`,
-        text: `Check out my playlist "${playlistName}" on Zolt!`,
-        url: url
-    };
-    if (navigator.share) {
-        navigator.share(shareData).catch(() => {});
-    } else {
-        navigator.clipboard.writeText(url);
-        alert('Share not supported. Link copied to clipboard!');
+
+    // Properly encode the URL for spoo.me
+    const encodedUrl = encodeURIComponent(url);
+
+    // Use spoo.me to shorten the URL
+    try {
+        const response = await fetch('https://spoo.me', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `url=${encodedUrl}`
+        });
+        const data = await response.json();
+        if (data.short_url) {
+            const shareData = {
+                title: `${playlistName} | Zolt`,
+                text: `Check out my playlist "${playlistName}" on Zolt!`,
+                url: data.short_url
+            };
+            if (navigator.share) {
+                navigator.share(shareData).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(data.short_url);
+                alert('Short link copied to clipboard!');
+            }
+        } else {
+            throw new Error('Shortening failed');
+        }
+    } catch (err) {
+        alert('Failed to shorten URL. Sharing original link.');
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url);
+        }
     }
 };
 
