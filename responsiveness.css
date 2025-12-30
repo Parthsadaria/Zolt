@@ -1,6 +1,13 @@
-/* RESPONSIVENESS STYLING IN THIS CSS */
-/* Tablets (481px - 768px) */
-@media screen and (min-width: 481px) and (max-width: 768px) {
+/* SIMPLIFIED RESPONSIVENESS CSS */
+:root {
+    --aboutus-font-size: 10px;
+    --aboutus-z: 1000;
+    --aboutus-transform: translate(-11rem);
+    --playlist-btn-margin: 3rem;
+}
+
+/* Tablets & Small Desktops (481px - 900px) */
+@media screen and (min-width: 481px) and (max-width: 900px) {
     .title {
         font-size: 4rem;
         top: 30%;
@@ -17,18 +24,21 @@
         transition: transform 0.4s ease;
         position: relative;
         top: 20px;
+        width: 280px;
+        height: 280px;
     }
 
     .fullscreen-content {
         display: flex;
-        height: 100%;
-        width: 100%;
-        border-radius: 0px;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        gap: 70px;
-        position: relative;
+        width: 95vw;
+        height: 90vh;
+        gap: 30px;
+        padding: 40px 30px;
+        border-radius: 0px;
         animation: slideInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        text-align: center;
     }
 
     .subtitle {
@@ -37,26 +47,20 @@
         transform: translateX(-50%);
     }
 
-    .search_bar {
-        width: 40%;
-        top: 55%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
     .aboutus {
         top: 20px;
         right: 20px;
         position: fixed;
-        z-index: 1000;
-        font-size: 12px;
+        z-index: var(--aboutus-z);
+        font-size: var(--aboutus-font-size);
+        transform: var(--aboutus-transform);
     }
 
     .opensidebar {
         top: 20px;
         left: 20px;
         position: fixed;
-        z-index: 1000;
+        z-index: var(--aboutus-z);
     }
 
     .title-move {
@@ -72,7 +76,8 @@
     }
 
     .results {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+        justify-content: center;
         gap: 1.5rem;
         width: 90%;
         top: 150px;
@@ -101,32 +106,31 @@
         position: relative;
         top: 40px;
         margin: 20px;
+        width: 220px;
+        height: 220px;
     }
 
     .fullscreen-content {
         display: flex;
-        height: 100%;
-        width: 100%;
-        max-height: 100%;
-        border-radius: 0px;
         flex-direction: row;
         align-items: center;
+        width: 100%;
+        max-height: 100%;
         gap: 70px;
-        position: relative;
+        border-radius: 0px;
         animation: slideInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     #closeFullscreenBtn {
         position: absolute;
-        margin-top: 20px;
-        margin-right: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 50%;
-        width: 48px;
-        height: 48px;
         cursor: pointer;
         z-index: 2;
         display: flex;
@@ -151,16 +155,16 @@
     }
 
     .aboutus {
-        z-index: 1000;
-        font-size: 10px;
-        transform: translate(-11rem);
+        z-index: var(--aboutus-z);
+        font-size: var(--aboutus-font-size);
+        transform: var(--aboutus-transform);
     }
 
     .opensidebar {
         top: 15px;
         left: 15px;
         position: fixed;
-        z-index: 1000;
+        z-index: var(--aboutus-z);
     }
 
     .title-move {
@@ -176,11 +180,12 @@
     }
 
     .results {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+        justify-content: center;
         gap: 1rem;
-        width: 80%;
+        width: 95%;
         top: 100px;
-        left: 60%;
+        left: 50%;
         transform: translateX(-50%);
         padding: 0.5rem;
     }
@@ -190,7 +195,7 @@
     }
 
     .add-to-playlist-btn {
-        margin-right: 3rem;
+        margin-right: var(--playlist-btn-margin);
     }
 }
 
@@ -216,17 +221,17 @@
     }
 
     .aboutus {
-        z-index: 1000;
+        z-index: var(--aboutus-z);
         width: max-content;
-        font-size: 10px;
-        transform: translate(-11rem);
+        font-size: var(--aboutus-font-size);
+        transform: var(--aboutus-transform);
     }
 
     .opensidebar {
         top: 15px;
         left: 15px;
         position: fixed;
-        z-index: 1000;
+        z-index: var(--aboutus-z);
     }
 
     .title-move {
@@ -241,7 +246,8 @@
 
     .results {
         top: 120px;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+        justify-content: center;
         gap: 1rem;
         padding: 0.5rem;
     }
@@ -266,11 +272,18 @@
     }
 
     .fullscreen-song-image {
-        border-radius: 24px;
-        height: 200px;
         width: 200px;
+        height: 200px;
         position: absolute;
         margin: 20px;
+    }
+
+    .fullscreen-artist-name,
+    .fullscreen-player-controls,
+    .fullscreen-song-title,
+    .lyrics-btn {
+        position: relative;
+        left: 20rem;
     }
 
     .fullscreen-artist-name {
@@ -278,30 +291,19 @@
         color: #a0a0a0;
         margin: 0;
         font-weight: 500;
-        left: 20rem;
-        position: relative;
         letter-spacing: 0.5px;
-    }
-
-    .fullscreen-player-controls {
-        position: relative;
-        left: 20rem;
     }
 
     .fullscreen-song-title {
         font-size: 1.5rem;
         font-weight: 800;
         color: #ffffff;
-        position: relative;
         margin-top: 20px;
-        left: 20rem;
         line-height: 1.1;
     }
 
     .fullscreen-content {
         display: flex;
-        /* height: 100%; */
-        /* width: 100%; */
         max-height: 100%;
         border-radius: 0px;
         flex-direction: row;
@@ -313,22 +315,19 @@
 
     .lyrics-btn {
         z-index: 9999;
-        position: relative;
-        left: 20rem;
         bottom: 20px;
     }
 
     #closeFullscreenBtn {
         position: absolute;
-        margin-top: 20px;
-        margin-right: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 50%;
-        width: 48px;
-        height: 48px;
         cursor: pointer;
         z-index: 2;
         display: flex;
@@ -338,39 +337,17 @@
     }
 }
 
-@media screen and (min-width: 481px) and (max-width: 767px) {
-    .aboutus {
-        z-index: 1000;
-        width: max-content;
-        font-size: 10px;
-        transform: translate(-11rem);
-    }
-
-    .lyrics-btn {
-        z-index: 9999;
-        position: absolute;
-        bottom: -15px;
-        margin-top: 10px;
-        left: 120px;
-    }
-}
-
+/* Larger screens (min-width: 768px, 820px, 1024px) */
 @media screen and (min-width: 768px) {
     .aboutus {
-        z-index: 1000;
+        z-index: var(--aboutus-z);
         width: max-content;
-        font-size: 10px;
+        font-size: var(--aboutus-font-size);
         transform: translate(-11rem, 3rem);
     }
 
-    .opensidebar {
-        z-index: 1;
-    }
-
-    .left-container {
-        z-index: 1;
-    }
-
+    .opensidebar,
+    .left-container,
     .search_bar {
         z-index: 1;
     }
@@ -380,44 +357,19 @@
     }
 
     .add-to-playlist-btn {
-        margin-right: 3rem;
+        margin-right: var(--playlist-btn-margin);
     }
 }
 
 @media screen and (min-width: 820px) {
     .aboutus {
-        z-index: 1000;
-        width: max-content;
-        font-size: 10px;
         transform: translate(-9rem, 3rem);
-    }
-
-    .opensidebar {
-        z-index: 1;
-    }
-
-    .left-container {
-        z-index: 1;
-    }
-
-    .search_bar {
-        z-index: 1;
-    }
-
-    .results {
-        padding: 0.5rem;
-    }
-
-    .add-to-playlist-btn {
-        margin-right: 3rem;
     }
 }
 
 @media screen and (min-width: 1024px) {
     .aboutus {
         z-index: 9;
-        width: max-content;
-        font-size: 10px;
         transform: translate(-9rem, 3rem);
     }
 
@@ -426,7 +378,7 @@
     }
 }
 
-/* For high DPI devices */
+/* High DPI devices */
 @media (-webkit-min-device-pixel-ratio: 2),
 (min-resolution: 192dpi) {
     .search_bar {
@@ -434,7 +386,7 @@
     }
 }
 
-/* Responsive */
+/* General Responsive Adjustments */
 @media (max-width: 1100px) {
     .fullscreen-content {
         width: 90vw;
@@ -452,30 +404,7 @@
     }
 }
 
-@media (max-width: 900px) {
-    .fullscreen-content {
-        flex-direction: column;
-        width: 95vw;
-        height: 90vh;
-        padding: 40px 30px;
-        gap: 30px;
-        text-align: center;
-    }
-
-    .fullscreen-song-image {
-        width: 280px;
-        height: 280px;
-    }
-
-    .fullscreen-song-title {
-        font-size: 2.8rem;
-    }
-
-    .fullscreen-artist-name {
-        font-size: 1.2rem;
-    }
-}
-
+/* Lyrics container for small screens */
 @media (max-width: 600px) {
     .fullscreen-content {
         padding: 30px 20px;
@@ -492,14 +421,10 @@
     }
 
     #closeFullscreenBtn {
-        top: 20px;
-        right: 20px;
         width: 40px;
         height: 40px;
     }
-}
 
-@media (max-width: 600px) {
     .fullscreen-song-info {
         position: relative;
     }
@@ -509,11 +434,18 @@
         bottom: 392px;
         margin: 1px;
         width: 100vh;
-
-        /* height: 200px; */
         font-size: 5px;
-        /* padding: 10px 6px; */
         right: -40px;
-
+    }
+}@media screen and (min-width: 900px) {
+    .results {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+        justify-content: center;
+        width: 80%;
+        max-width: 1400px;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 2rem;
+        padding: 1rem;
     }
 }
