@@ -225,6 +225,11 @@ function playPlaylist(playlistName) {
         return;
     }
 
+    // Reset repeat state to allow playlist to flow
+    if (typeof resetRepeatState === 'function') {
+        resetRepeatState();
+    }
+
     // Clear the queue and add all songs
     songQueue = songs.map(song => ({
         url: song.url,

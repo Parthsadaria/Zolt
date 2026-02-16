@@ -126,6 +126,8 @@ function playSong(url, name, artist, image) {
 
 // Play the next song in the queue when the current one ends
 audioPlayer.addEventListener('ended', () => {
+    // If repeat is on, it will loop automatically via audioPlayer.loop
+    // So this event only fires when repeat is OFF
     if (songQueue.length === 0) {
         updateQueueDisplay();
         return;
@@ -136,9 +138,29 @@ audioPlayer.addEventListener('ended', () => {
         updateQueueDisplay();
         updateMediaSession(songQueue[currentSongIndex]);
     } else {
-        // End of queue
-        currentSongIndex = -1;
+        // End of queue - loop back to start
+        currentSongIndex = 0;
+        loadAndPlaySong(songQueue[currentSongIndex]);
         updateQueueDisplay();
+        updateMediaSession(songQueue[currentSongIndex]);
+    }
+});
+
+// Add error handler to skip to next song if current song fails to load
+audioPlayer.addEventListener('error', (e) => {
+    console.error('Error loading audio:', e);
+    // Skip to next song if there's an error
+    if (songQueue.length > 1 && currentSongIndex < songQueue.length - 1) {
+        currentSongIndex++;
+        loadAndPlaySong(songQueue[currentSongIndex]);
+        updateQueueDisplay();
+        updateMediaSession(songQueue[currentSongIndex]);
+    } else if (songQueue.length > 1) {
+        // If we're at the end, loop to start
+        currentSongIndex = 0;
+        loadAndPlaySong(songQueue[currentSongIndex]);
+        updateQueueDisplay();
+        updateMediaSession(songQueue[currentSongIndex]);
     }
 });
 
@@ -156,7 +178,18 @@ function loadAndPlaySong(song) {
     audioPlayer.currentTime = 0;
     audioSource.src = song.url;
     audioPlayer.load();
-    audioPlayer.play();
+    audioPlayer.play().catch(err => {
+        console.error('Error playing audio:', err);
+        // Try next song if play fails
+        if (songQueue.length > 1 && currentSongIndex < songQueue.length - 1) {
+            setTimeout(() => {
+                currentSongIndex++;
+                loadAndPlaySong(songQueue[currentSongIndex]);
+                updateQueueDisplay();
+                updateMediaSession(songQueue[currentSongIndex]);
+            }, 500);
+        }
+    });
     
     // Update the song details
     currentSongImage.src = song.image;
@@ -388,6 +421,15 @@ songRepeatBtn.addEventListener('click', () => {
     audioPlayer.loop = false; // Disable looping
   }
 });
+
+// Ensure repeat is off when playing a new playlist
+function resetRepeatState() {
+  if (isRepeatOn) {
+    isRepeatOn = false;
+    audioPlayer.loop = false;
+    songRepeatBtn.classList.remove('on');
+  }
+}
 // Function to update Media Session metadata
 function updateMediaSession(song) {
     if ('mediaSession' in navigator) {
